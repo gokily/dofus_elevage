@@ -144,7 +144,7 @@ $myyellow: #f9d0a7;
 
 
 html {
-  background-color: $mywhite;
+  background-color: $myyellow;
 }
 
 body {
@@ -152,6 +152,8 @@ body {
   font-family: $roboto-font;
   line-height: 1.4;
   padding: 60px 30px 30px;
+
+  background-color: $myyellow;
   color: $mydarkgrey;
 }
 
@@ -170,12 +172,21 @@ h1 {
   font-weight: 700;
 }
 
+h2 {
+  font-size: 2em;
+}
+
 section {
   overflow: auto;
 }
 
 a {
   color: $mygrey;
+}
+
+.main-container {
+  background-color: $mywhite;
+  padding: 20px;
 }
 /* HEADER CSS */
 
@@ -216,4 +227,16 @@ footer ul {
 footer ul li {
   float: left;
   margin-left: 15px;
+}
+
+/* FORM CSS */
+
+form {
+  max-width: 480px;
+  border: $myblack solid 1px;
+  border-radius: 20px;
+  padding: 15px 30px;
+  .field, .actions{
+    margin-top: 5px;
+  }
 }
