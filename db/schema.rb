@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_132236) do
+ActiveRecord::Schema.define(version: 2019_06_10_145000) do
+
+  create_table "mounts", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.string "color"
+    t.integer "reproduction"
+    t.boolean "sex"
+    t.boolean "pregnant"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_mounts_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_mounts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "server"
