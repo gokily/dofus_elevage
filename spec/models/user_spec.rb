@@ -45,4 +45,13 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.errors[:email]).to include('has already been taken')
   end
+
+  describe "#destroy" do
+    it 'deletes the mount owned by the user' do
+      user = create(:user)
+      create(:mount, owner: user)
+      expect(user.mounts.length).to eql 1
+      expect { user.destroy }.to change(Mount, :count).by(-1)
+    end
+  end
 end

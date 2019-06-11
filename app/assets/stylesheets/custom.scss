@@ -142,11 +142,6 @@ $myyellow: #f9d0a7;
   box-sizing: border-box;
 }
 
-
-html {
-  background-color: $myyellow;
-}
-
 body {
   @include box_sizing;
   font-family: $roboto-font;
@@ -184,8 +179,12 @@ a {
   color: $mygrey;
 }
 
+
+%shadow {
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+}
+
 .main-container {
-  background-color: $mywhite;
   padding: 20px;
 }
 /* HEADER CSS */
@@ -212,17 +211,18 @@ a {
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid $mylightgrey;
-}
-
-footer a:hover {
-  color: $myblack;
+  background-color: $myblack;
+  color: $mywhite;
 }
 
 footer ul {
   float: right;
   list-style: none;
 }
+
+ footer ul:after {
+   clear: both;
+ }
 
 footer ul li {
   float: left;
@@ -231,12 +231,116 @@ footer ul li {
 
 /* FORM CSS */
 
-form {
-  max-width: 480px;
-  border: $myblack solid 1px;
-  border-radius: 20px;
-  padding: 15px 30px;
-  .field, .actions{
-    margin-top: 5px;
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  @include box_sizing;
+  margin-bottom: 15px;
+}
+textarea {
+  resize: vertical;
+}
+
+%form {
+  margin-top: 2vh;
+  border-radius: 7px;
+  @extend %shadow;
+  padding: 0px;
+  border-top: 10px solid $myblack;
+  background-color: $mywhite;
+}
+#error_explanation {
+  ul {
+    color: #a94442;
+    margin: -5px 0 30px 0;
   }
+}
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+.form-content {
+  padding: 20px;
+}
+
+.form-name {
+  padding: 0px 20px;
+}
+.mount-form {
+  @extend %form;
+  h2 {
+    background-color: $myblack;
+    color: $mywhite;
+  }
+}
+
+/* MOUNT CSS */
+.mount-page {
+  background-color: $mywhite;
+  padding: 20px;
+  border-radius: 7px;
+  @extend %shadow;
+}
+li.mount {
+  clear: both;
+  border: $myblack solid 1px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: $mywhite;
+  display: flex;
+  align-items: center;
+  span {
+    padding: 0px 7px;
+  }
+}
+.mount-legend {
+  background-color: $mylightgrey;
+  margin-top: 20px;
+  .mount-img {
+    background-color: inherit;
+  }
+}
+.mount-img {
+  height: 35px;
+  width: 35px;
+  background-color: black;
+  margin: 0px 7px;
+}
+.mount-name {
+  border-right: $myblack solid 1px;
+  flex-basis: 15%;
+}
+.mount-color {
+  border-right: $myblack solid 1px;
+  flex-basis: 15%;
+}
+.mount-sex {
+  border-right: $myblack solid 1px;
+  flex-basis: 13%;
+}
+.mount-reproduction {
+  border-right: $myblack solid 1px;
+  flex-basis: 18%;
+}
+.mount-pregnant {
+  border-right: $myblack solid 1px;
+  flex-basis: 15%;
+}
+
+.new-mount {
+  float: right;
+  font-weight: 700;
 }

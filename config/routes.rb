@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     get 'signout', to: 'devise/sessions#destroy'
     get 'signup', to: 'devise/registrations#new'
   end
+  resources :mounts
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

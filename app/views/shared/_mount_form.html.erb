@@ -1,0 +1,23 @@
+<h2 class="form-name">New mount</h2>
+<%= form_for(@mount, url: form_url, html: { class: "form-content" }) do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :color %>
+  <%= f.text_field :color, class: 'form-control' %>
+
+  <%= f.label :sex %>
+  <%= f.label :sex, 'Male', value: false %>
+  <%= f.radio_button :sex, false %>
+  <%= f.label :sex, 'Female', value: true %>
+  <%= f.radio_button :sex, true %>
+
+  <%= f.label :reproduction %>
+  <%= f.number_field :reproduction, in: 0..4, class: 'form-control', value: 0%>
+  <%= f.submit button_text, class: "btn btn-success" %>
+
+
+<% end %>

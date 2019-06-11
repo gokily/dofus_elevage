@@ -1,0 +1,10 @@
+<li class="mount" id="mount-<%= mount.id %>">
+  <span class="mount-name"><%= mount.name %></span>
+  <span class="mount-img"></span>
+  <span class="mount-color"><%= mount.color %></span>
+  <span class="mount-sex"><%= mount.sex ? 'Female' : 'Male'%></span>
+  <span class="mount-reproduction"><%= mount.reproduction %></span>
+  <span class="mount-pregnant">
+    <%= mount.pregnant ? 'Fecondee' : mount.reproduction == 0 ? 'Sterile' : 'Feconde' %>
+  </span>
+</li>
