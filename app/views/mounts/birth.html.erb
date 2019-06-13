@@ -10,7 +10,7 @@
       <span class="mount-reproduction">Reproduction</span>
       <span class="mount-pregnant">Fertility</span>
     </li>
-    <% if current_user.mounts.any? %>
+    <% if @mounts.empty? == false %>
       <ol class="mount-list">
         <%= render @mounts %>
       </ol>

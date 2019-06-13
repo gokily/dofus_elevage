@@ -3,7 +3,7 @@ class MountsController < ApplicationController
   #before_action :user_signed_in?
 
   def index
-    @mounts = current_user.mounts.paginate(page: params[:page])
+    @mounts = current_user.mounts.paginate(page: params[:page], per_page: 15)
   end
 
   def new
@@ -20,6 +20,10 @@ class MountsController < ApplicationController
       flash[:danger] = "Didn't work!"
       redirect_back(fallback_location: mounts_path)
     end
+  end
+
+  def birth
+    @mounts = current_user.mounts.where(pregnant: true).paginate(page: params[:page])
   end
 
   private
