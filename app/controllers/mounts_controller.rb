@@ -1,6 +1,6 @@
 class MountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :user_signed_in?
+  #before_action :user_signed_in?
 
   def index
     @mounts = current_user.mounts.paginate(page: params[:page])

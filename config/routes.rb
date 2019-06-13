@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   get 'contact', to: 'static_pages#contact'
 
   devise_scope :user do
-    get 'signin', to: 'devise/sessions#new'
-    get 'signout', to: 'devise/sessions#destroy'
-    get 'signup', to: 'devise/registrations#new'
+    get 'sign_in', to: 'devise/sessions#new'
+    get 'sign_out', to: 'devise/sessions#destroy'
+    get 'sign_up', to: 'devise/registrations#new'
   end
   resources :mounts
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
