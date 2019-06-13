@@ -6,5 +6,7 @@ FactoryBot.define do
     server 'Ily'
     sequence(:email) { |n| "test#{n}@test.com" }
     password 'password'
+    password_confirmation 'password'
+    confirmed_at { Date.today }
   end
 end
