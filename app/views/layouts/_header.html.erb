@@ -1,13 +1,15 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-	<div class="container">
-	<%= link_to "Dofus Elevage", root_path, id: "logo" %>
-		<nav>
-			<ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   root_path %></li>
-        <li><%= link_to "Help",   help_path %></li>
-        <li><%= link_to "Log in", sign_in_path %></li>
+<header class="navbar navbar-expand-lg navbar-fixed-top navbar-inverse">
+
+  <%= link_to "Dofus Elevage", root_path, id: "logo", class: "navbar-brand" %>
+  <nav class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to "Help", help_path %></li>
+      <% if user_signed_in? %>
         <li><%= link_to "Log out", sign_out_path %></li>
-			</ul>
-		</nav>
-	</div>
+      <% else %>
+        <li><%= link_to "Log in", sign_in_path %></li>
+      <% end %>
+    </ul>
+  </nav>
 </header>
