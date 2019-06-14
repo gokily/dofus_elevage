@@ -90,6 +90,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -104,17 +105,21 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -122,6 +127,7 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -212,6 +218,9 @@ header {
   text-decoration: none;
 }
 
+.row {
+  max-width: 960px;
+}
 
 /* FOOTER CSS */
 
@@ -227,9 +236,9 @@ footer ul {
   list-style: none;
 }
 
- footer ul:after {
-   clear: both;
- }
+footer ul:after {
+  clear: both;
+}
 
 footer ul li {
   float: left;
@@ -260,6 +269,7 @@ footer ul li {
   text-decoration: none;
   color: $mywhite;
 }
+
 /* FORM CSS */
 
 input, textarea, select, .uneditable-input {
@@ -268,8 +278,14 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
   margin-bottom: 15px;
 }
+
 textarea {
   resize: vertical;
+}
+
+input[type='radio'] {
+  width: auto;
+  margin-bottom: 15px;
 }
 
 %form {
@@ -280,21 +296,26 @@ textarea {
   border-top: 10px solid $myblack;
   background-color: $mywhite;
 }
+
 #error_explanation {
   ul {
     color: #a94442;
     margin: -5px 0 30px 0;
   }
 }
+
 .field_with_errors {
   @extend .has-error;
+
   .form-control {
     color: $state-danger-text;
   }
 }
+
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
+
   span {
     margin-left: 20px;
     font-weight: normal;
@@ -306,10 +327,12 @@ textarea {
 }
 
 .form-name {
-  padding: 0px 20px;
+  padding: 0px 20px 5px;
 }
+
 .mount-form {
   @extend %form;
+
   h2 {
     background-color: $myblack;
     color: $mywhite;
@@ -323,54 +346,67 @@ textarea {
   border-radius: 7px;
   @extend %shadow;
 }
+
 li.mount {
   clear: both;
   border: $myblack solid 1px;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 8px;
-  padding: 5px;
+  padding: 5px 0px;
   background-color: $mywhite;
   display: flex;
   align-items: center;
+
   span {
     padding: 0px 7px;
   }
 }
+
 .mount-legend {
   background-color: $mylightgrey;
   margin-top: 20px;
+
   .mount-img {
     background-color: inherit;
   }
 }
+
 .mount-img {
   height: 35px;
   width: 35px;
   background-color: black;
   margin: 0px 7px;
 }
+
 .mount-name {
   border-right: $myblack solid 1px;
   flex-basis: 15%;
+  flex-grow: 1;
 }
+
 .mount-color {
   border-right: $myblack solid 1px;
   flex-basis: 15%;
 }
+
 .mount-sex {
   border-right: $myblack solid 1px;
-  flex-basis: 13%;
+  flex-basis: 10%;
 }
+
 .mount-reproduction {
-  border-right: $myblack solid 1px;
-  flex-basis: 18%;
-}
-.mount-pregnant {
   border-right: $myblack solid 1px;
   flex-basis: 15%;
 }
 
+.mount-pregnant {
+  border-right: $myblack solid 1px;
+  flex-basis: 13%;
+}
+.mount-button {
+  flex-basis: 124px;
+}
 .new-mount {
   float: right;
   font-weight: 700;

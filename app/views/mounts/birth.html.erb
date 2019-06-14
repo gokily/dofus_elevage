@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 mount-page">
+  <div class="col-md-12 mount-page">
     <%= link_to('New mount', new_mount_path, class: "btn btn-success new-mount") %>
     <p>Current user is <%= current_user.username %>. He has <%= current_user.mounts.count %> mounts</p>
     <li class="mount mount-legend">
@@ -9,6 +9,7 @@
       <span class="mount-sex">Sex</span>
       <span class="mount-reproduction">Reproduction</span>
       <span class="mount-pregnant">Fertility</span>
+      <span class="mount-button"></span>
     </li>
     <% if @mounts.empty? == false %>
       <ol class="mount-list">

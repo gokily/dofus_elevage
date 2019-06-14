@@ -2,9 +2,20 @@
   <span class="mount-name"><%= mount.name %></span>
   <span class="mount-img"></span>
   <span class="mount-color"><%= mount.color %></span>
-  <span class="mount-sex"><%= mount.sex ? 'Female' : 'Male'%></span>
+  <span class="mount-sex"><%= mount.sex ? 'Female' : 'Male' %></span>
   <span class="mount-reproduction"><%= mount.reproduction %></span>
   <span class="mount-pregnant">
-    <%= mount.pregnant ? 'Fecondee' : mount.reproduction == 0 ? 'Sterile' : 'Feconde' %>
+    <%= if mount.pregnant
+          'Fecondee'
+        else
+          mount.reproduction == 0 ? 'Sterile' : 'Feconde'
+        end %>
+  </span>
+  <span class="mount-button">
+    <%= link_to 'Edit', edit_mount_path(mount), class: "btn btn-primary mount-edit" %>
+
+    <% if mount.pregnant %>
+      <%= link_to 'Birth', root_path, class: "btn btn-danger mount-give-birth" %>
+  <% end %>
   </span>
 </li>

@@ -9,12 +9,18 @@
   <%= f.label :color %>
   <%= f.text_field :color, class: 'form-control' %>
 
-  <%= f.label :sex %>
+  <%= f.label :sex %><br>
   <%= f.label :sex, 'Male', value: false %>
   <%= f.radio_button :sex, false %>
   <%= f.label :sex, 'Female', value: true %>
   <%= f.radio_button :sex, true %>
-
+  <br>
+  <%= f.label :pregnant, 'Pregnant'%><br>
+  <%= f.label :pregnant, 'Yes', value: true %>
+  <%= f.radio_button :pregnant, true %>
+  <%= f.label :pregnant, 'No', value: false %>
+  <%= f.radio_button :pregnant, false %>
+  <br>
   <%= f.label :reproduction %>
   <%= f.number_field :reproduction, in: 0..4, class: 'form-control', value: 0%>
   <%= f.submit button_text, class: "btn btn-success" %>
