@@ -5,7 +5,7 @@ class CreateMounts < ActiveRecord::Migration[5.2]
       t.references :user, foreign_key: true
       t.string :color
       t.integer :reproduction
-      t.boolean :sex
+      t.string :sex
       t.boolean :pregnant
 
       t.timestamps

@@ -177,6 +177,10 @@ h2 {
   font-size: 2em;
 }
 
+h3 {
+  font-size: 1.6em;
+}
+
 section {
   overflow: auto;
 }
@@ -405,7 +409,10 @@ li.mount {
   flex-basis: 13%;
 }
 .mount-button {
-  flex-basis: 124px;
+  flex-basis: 130px;
+}
+.mount-give-birth {
+  width: 62px;
 }
 .new-mount {
   float: right;

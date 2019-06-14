@@ -1,7 +1,8 @@
 <div class="row">
   <div class="col-md-12 mount-page">
-    <%= link_to('New mount', new_mount_path, class: "btn btn-success new-mount") %>
-    <p>Current user is <%= current_user.username %>. He has <%= current_user.mounts.count %> mounts</p>
+    <div>
+      <h3>Choose a mates for <%= @mount.name %></h3>
+    </div>
     <li class="mount mount-legend">
       <span class="mount-name">Name</span>
       <span class="mount-img"></span>
@@ -11,11 +12,11 @@
       <span class="mount-pregnant">Fertility</span>
       <span class="mount-button"></span>
     </li>
-    <% if @mounts.empty? == false %>
+    <% if @mates.any? %>
       <ol class="mount-list">
-        <%= render @mounts %>
+        <%= render @mates, path: 'breed'%>
       </ol>
-      <%= will_paginate @mounts %>
+      <%= will_paginate @mates %>
     <% end %>
   </div>
 </div>

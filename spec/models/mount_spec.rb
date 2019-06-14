@@ -68,4 +68,53 @@ sex and pregnant status' do
     other_mount = other_user.mounts.build(mount_params)
     expect(other_mount).to be_valid
   end
+
+  describe 'look if a mount can breed' do
+    context 'for a fertile mount with at least 1 reproduction left' do
+      it 'returns true' do
+        @mount.pregnant = false
+        @mount.reproduction = 1
+        expect(@mount.breedable?).to be true
+      end
+    end
+    context 'for a already pregnant mount' do
+      it 'returns false' do
+        @mount.pregnant = true
+        expect(@mount.breedable?).to be false
+      end
+    end
+    context 'for a fertile mount with 0 reproduction left' do
+      it 'returns false' do
+        @mount.pregnant = false
+        @mount.reproduction = 0
+        expect(@mount.breedable?).to be false
+      end
+
+    end
+  end
+
+  describe 'mate two mounts together' do
+    before do
+      @mount.update_attributes({ reproduction: 4, pregnant: false, sex: 'M' })
+      @second = build(:mount, owner: @user, reproduction: 4, pregnant: false, sex: 'F')
+    end
+    context 'with two breedable mounts of the opposite sex' do
+      it 'mates them' do
+        expect(@mount.mate(@second)).to eql 1
+      end
+    end
+    context 'with two breedable mounts of the same sex' do
+      it 'returns an error' do
+        @second.sex = 'M'
+        expect(@mount.mate(@second)).to eql 0
+      end
+    end
+    context 'with at least one mount that is not breedable' do
+      it 'returns an error' do
+        @mount.reproduction = 0
+        expect(@mount.mate(@second)).to eql 0
+        expect(@second.mate(@mount)).to eql 0
+      end
+    end
+  end
 end

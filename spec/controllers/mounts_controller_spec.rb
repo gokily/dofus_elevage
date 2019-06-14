@@ -32,7 +32,7 @@ RSpec.describe MountsController, type: :controller do
       before do
         @user = create(:user)
       end
-      
+
       it 'adds a mount' do
         mount_params = attributes_for(:mount)
         sign_in @user
@@ -67,16 +67,15 @@ RSpec.describe MountsController, type: :controller do
       it 'edit the mounts' do
         sign_in @user
         mount_params = attributes_for(:mount, name: 'new')
-        patch :update, params: { id: @mount.id, mount: mount_params }
+        patch :update, params: {id: @mount.id, mount: mount_params}
         expect(@mount.reload.name).to eq 'new'
-
       end
     end
-    context 'as other user' do
+    context 'as an incorrect user' do
       context 'as a guest user' do
         it 'redirects to the sign in page' do
           mount_params = attributes_for(:mount, name: 'new')
-          patch :update, params: { id: @mount.id, mount: mount_params }
+          patch :update, params: {id: @mount.id, mount: mount_params}
           expect(response).to redirect_to '/users/sign_in'
         end
       end
@@ -87,17 +86,72 @@ RSpec.describe MountsController, type: :controller do
         it 'does not update the mount' do
           sign_in @other_user
           mount_params = attributes_for(:mount, name: 'new')
-          patch :update, params: { id: @mount.id, mount: mount_params }
+          patch :update, params: {id: @mount.id, mount: mount_params}
           expect(@mount.reload.name).to eq 'old'
         end
         it 'redirects to the mounts index of the current_user' do
           sign_in @other_user
           mount_params = attributes_for(:mount, name: 'new')
-          patch :update, params: { id: @mount.id, mount: mount_params }
+          patch :update, params: {id: @mount.id, mount: mount_params}
           expect(response).to redirect_to mounts_path
         end
       end
     end
 
+  end
+
+  describe '#mate' do
+    before do
+      @user = create(:user)
+      @male = create(:mount,
+                     owner: @user, reproduction: 4, pregnant: false, sex: 'M')
+      @female = create(:mount,
+                       owner: @user, reproduction: 3, pregnant: false, sex: 'F')
+    end
+    context 'as the correct user' do
+      before do
+        sign_in @user
+      end
+      it 'mates the mounts' do
+        get :mate, params: {id: @male.id, parent2: @female.id}
+        expect(@male.reload.pregnant).to be true
+        expect(@female.reload.pregnant).to be true
+      end
+
+      it 'reduces the reproduction count by 1' do
+        expect {
+          get :mate, params: {id: @male.id, parent2: @female.id}
+        }.to change { @male.reload.reproduction }.by(-1)
+                 .and change { @female.reload.reproduction }.by(-1)
+      end
+    end
+    context 'as an incorrect user' do
+      context 'as a guest user' do
+        it 'does not mate the mounts' do
+          get :mate, params: {id: @male.id, parent2: @female.id}
+          expect(@male.reload.pregnant).to be false
+          expect(@female.reload.pregnant).to be false
+        end
+        it 'redirects to the sign in page' do
+          get :mate, params: {id: @male.id, parent2: @female.id}
+          expect(response).to redirect_to '/users/sign_in'
+        end
+      end
+      context 'as an other user' do
+        before do
+          @other_user = create(:user)
+          sign_in @other_user
+        end
+        it 'does not mate the mounts' do
+          get :mate, params: {id: @male.id, parent2: @female.id}
+          expect(@male.reload.pregnant).to be false
+          expect(@female.reload.pregnant).to be false
+        end
+        it 'redirects to the current_user\'s mounts index' do
+          get :mate, params: {id: @male.id, parent2: @female.id}
+          expect(response).to redirect_to(mounts_path)
+        end
+      end
+    end
   end
 end

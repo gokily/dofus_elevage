@@ -1,6 +1,6 @@
 class MountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user?, only: [:edit, :update]
+  before_action :correct_user?, only: [:edit, :update, :mate]
 
   def index
     @mounts = current_user.mounts.paginate(page: params[:page], per_page: 15)
@@ -36,8 +36,25 @@ class MountsController < ApplicationController
     end
   end
 
-  def birth
+  def pregnant
     @mounts = current_user.mounts.where(pregnant: true).paginate(page: params[:page])
+  end
+
+  def breed
+    @mount = current_user.mounts.find(params[:id])
+    @mates = current_user.mounts.where(sex: @mount.sex == 'F' ? 'M' : 'F', pregnant: false).paginate(page: params[:page])
+  end
+
+  def mate
+    parent1 = current_user.mounts.find_by(id: params[:id])
+    parent2 = current_user.mounts.find_by(id: params[:parent2])
+    if parent1.mate(parent2) == 1
+      flash[:success] = "#{parent1.name} mated with #{parent2.name}."
+      redirect_to(mounts_path)
+    else
+      flash[:danger] = "Cannot mate #{parent1.name} with #{parent2.name}."
+      redirect_back(fallback_location: breed_mount_path(parent1.id))
+    end
   end
 
   private

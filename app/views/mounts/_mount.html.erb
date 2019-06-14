@@ -2,7 +2,7 @@
   <span class="mount-name"><%= mount.name %></span>
   <span class="mount-img"></span>
   <span class="mount-color"><%= mount.color %></span>
-  <span class="mount-sex"><%= mount.sex ? 'Female' : 'Male' %></span>
+  <span class="mount-sex"><%= mount.sex == 'F' ? 'Female' : 'Male' %></span>
   <span class="mount-reproduction"><%= mount.reproduction %></span>
   <span class="mount-pregnant">
     <%= if mount.pregnant
@@ -12,10 +12,16 @@
         end %>
   </span>
   <span class="mount-button">
+    <% if path == 'breed' %>
+      <%= link_to 'Test', mate_mount_path(@mount, parent2: mount.id), class: "btn btn-primary mount-edit" %>
+      <% else %>
     <%= link_to 'Edit', edit_mount_path(mount), class: "btn btn-primary mount-edit" %>
 
-    <% if mount.pregnant %>
-      <%= link_to 'Birth', root_path, class: "btn btn-danger mount-give-birth" %>
-  <% end %>
+      <% if mount.pregnant %>
+      <%= link_to 'Birth', root_path, class: "btn btn-info mount-give-birth" %>
+      <% else %>
+    <%= link_to 'Breed', breed_mount_path(mount.id), class: "btn btn-warning mount-breed" %>
+    <% end %>
+      <% end %>
   </span>
 </li>

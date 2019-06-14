@@ -10,10 +10,10 @@
   <%= f.text_field :color, class: 'form-control' %>
 
   <%= f.label :sex %><br>
-  <%= f.label :sex, 'Male', value: false %>
-  <%= f.radio_button :sex, false %>
-  <%= f.label :sex, 'Female', value: true %>
-  <%= f.radio_button :sex, true %>
+  <%= f.label :sex, 'Male', value: 'M' %>
+  <%= f.radio_button :sex, 'M' %>
+  <%= f.label :sex, 'Female', value: 'F' %>
+  <%= f.radio_button :sex, 'F' %>
   <br>
   <%= f.label :pregnant, 'Pregnant'%><br>
   <%= f.label :pregnant, 'Yes', value: true %>

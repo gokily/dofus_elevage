@@ -10,17 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_10_145000) do
+ActiveRecord::Schema.define(version: 2019_06_14_100032) do
 
   create_table "mounts", force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
     t.string "color"
     t.integer "reproduction"
-    t.boolean "sex"
+    t.string "sex"
     t.boolean "pregnant"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "father_id"
+    t.integer "mother_id"
+    t.integer "current_spouse_id"
+    t.index ["father_id", "mother_id"], name: "index_mounts_on_father_id_and_mother_id"
+    t.index ["father_id"], name: "index_mounts_on_father_id"
+    t.index ["mother_id"], name: "index_mounts_on_mother_id"
     t.index ["user_id", "created_at"], name: "index_mounts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_mounts_on_user_id"
   end

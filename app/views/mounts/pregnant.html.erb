@@ -11,9 +11,9 @@
       <span class="mount-pregnant">Fertility</span>
       <span class="mount-button"></span>
     </li>
-    <% if current_user.mounts.any? %>
+    <% if @mounts.empty? == false %>
       <ol class="mount-list">
-        <%= render @mounts, path: 'index' %>
+        <%= render @mounts, path: 'pregnant' %>
       </ol>
       <%= will_paginate @mounts %>
     <% end %>
