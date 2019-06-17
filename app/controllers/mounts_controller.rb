@@ -42,7 +42,9 @@ class MountsController < ApplicationController
 
   def breed
     @mount = current_user.mounts.find(params[:id])
-    @mates = current_user.mounts.where(sex: @mount.sex == 'F' ? 'M' : 'F', pregnant: false).paginate(page: params[:page])
+    @mates = current_user.mounts\
+                         .where('sex == ? AND pregnant == 0 AND reproduction != 0', \
+                                @mount.sex == 'M' ? 'F' : 'M').paginate(page: params[:page])
   end
 
   def mate
@@ -58,6 +60,7 @@ class MountsController < ApplicationController
   end
 
   private
+
   def mount_params
     params.require(:mount).permit(:name, :color, :sex, :reproduction, :pregnant)
   end
