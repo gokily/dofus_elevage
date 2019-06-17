@@ -17,14 +17,21 @@ class Mount < ApplicationRecord
     self.reproduction != 0 && self.pregnant == false
   end
 
+  def sterile?
+    self.reproduction == 0 && self.pregnant == false
+  end
+
   def mate(other)
     if (self.sex != other.sex) && self.breedable? && other.breedable?
-      self.pregnant = true
-      other.pregnant = true
+      if (self.sex == 'F')
+        self.pregnant = true
+        self.current_spouse_id = other.id
+      else
+        other.pregnant = true
+        other.current_spouse_id = self.id
+      end
       self.reproduction -= 1
       other.reproduction -= 1
-      self.current_spouse_id = other.id
-      other.current_spouse_id = self.id
       if self.save! && other.save!
         return 1
       else

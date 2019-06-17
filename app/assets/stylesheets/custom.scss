@@ -361,8 +361,7 @@ li.mount {
   background-color: $mywhite;
   display: flex;
   align-items: center;
-
-  span {
+  > span {
     padding: 0px 7px;
   }
 }
@@ -409,10 +408,10 @@ li.mount {
   flex-basis: 13%;
 }
 .mount-button {
-  flex-basis: 130px;
+  flex-basis: 135px;
 }
-.mount-give-birth {
-  width: 62px;
+.mount-give-birth, .mount-breed, .mount-sterile {
+  width: 64px;
 }
 .new-mount {
   float: right;

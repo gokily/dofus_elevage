@@ -13,15 +13,17 @@
   </span>
   <span class="mount-button">
     <% if path == 'breed' %>
-      <%= link_to 'Test', mate_mount_path(@mount, parent2: mount.id), class: "btn btn-primary mount-edit" %>
-      <% else %>
-    <%= link_to 'Edit', edit_mount_path(mount), class: "btn btn-primary mount-edit" %>
+      <%= link_to 'Mate', mate_mount_path(@mount, parent2: mount.id), class: "btn btn-primary mount-edit" %>
+    <% else %>
+      <%= link_to 'Edit', edit_mount_path(mount), class: "btn btn-primary mount-edit" %>
 
       <% if mount.pregnant %>
-      <%= link_to 'Birth', root_path, class: "btn btn-info mount-give-birth" %>
-      <% else %>
-    <%= link_to 'Breed', breed_mount_path(mount.id), class: "btn btn-warning mount-breed" %>
-    <% end %>
+        <%= link_to 'Birth', root_path, class: "btn btn-info mount-give-birth" %>
+        <% elsif mount.sterile? %>
+          <span class="btn btn-danger mount-sterile">Sterile</span>
+        <% else %>
+          <%= link_to 'Breed', breed_mount_path(mount.id), class: "btn btn-warning mount-breed" %>
+        <% end %>
       <% end %>
   </span>
 </li>
