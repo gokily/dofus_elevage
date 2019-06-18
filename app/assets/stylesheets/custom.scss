@@ -1,7 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
 html,
 body,
 div,
@@ -297,7 +296,6 @@ input[type='radio'] {
   border-radius: 7px;
   @extend %shadow;
   padding: 0px;
-  border-top: 10px solid $myblack;
   background-color: $mywhite;
 }
 
@@ -334,6 +332,12 @@ input[type='radio'] {
   padding: 0px 20px 5px;
 }
 
+.global-mount-form {
+  @extend %form;
+
+  border-top: 10px solid $myblack;
+}
+
 .mount-form {
   @extend %form;
 
@@ -341,6 +345,12 @@ input[type='radio'] {
     background-color: $myblack;
     color: $mywhite;
   }
+}
+
+.test-form {
+  width: 45%;
+  display: inline-block;
+  margin: 10px 20px;
 }
 
 /* MOUNT CSS */
@@ -416,4 +426,7 @@ li.mount {
 .new-mount {
   float: right;
   font-weight: 700;
+}
+.birth-dropdown-menu {
+  min-width: 0px;
 }

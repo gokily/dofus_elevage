@@ -8,6 +8,7 @@ class Mount < ApplicationRecord
   validates :owner, presence: true
   validates :color, presence: true
   validates :reproduction, presence: true, inclusion: 0..4
+  validates :pregnant, inclusion: [true, false]
 
   def self.colors
     %w[Doree Indigo Ebene Pourpre Orchidee Roux Amande Prune Emeraude Ivoire Turquoise]

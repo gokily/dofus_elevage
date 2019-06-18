@@ -15,10 +15,12 @@ Rails.application.routes.draw do
   resources :mounts do
     collection do
       get :pregnant
+      post :birth_create
     end
     member do
       get :breed
       get :mate
+      get :birth
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
