@@ -1,5 +1,5 @@
 <li class="mount" id="mount-<%= mount.id %>">
-  <span class="mount-name"><%= mount.name %></span>
+  <%= link_to mount.name, mount_path(mount.id), class: "mount-name" %>
   <span class="mount-img"></span>
   <span class="mount-color"><%= mount.color %></span>
   <span class="mount-sex"><%= mount.sex == 'F' ? 'Female' : 'Male' %></span>
@@ -21,9 +21,12 @@
         <span class="dropdown">
           <button class="btn btn-info mount-give-birth dropdown-toggle"
                   type="button" id="birth-number" data-toggle="dropdown">Birth</button>
-          <div class="dropdown-menu dropdown-menu-right birth-dropdown-menu" aria-labelledby="birth-number">
-            <%= link_to '+1', birth_mount_path(mount.id, n_child: 1), class: "btn btn-primary mount-edit" %>
-            <%= link_to '+2', birth_mount_path(mount.id, n_child: 2), class: "btn btn-primary mount-edit" %>
+          <div class="dropdown-menu dropdown-menu-right birth-dropdown-menu"
+               aria-labelledby="birth-number">
+            <%= link_to '+1', birth_mount_path(mount.id, n_child: 1),
+                        class: "btn btn-info mount-edit" %>
+            <%= link_to '+2', birth_mount_path(mount.id, n_child: 2),
+                        class: "btn btn-info mount-edit" %>
           </div>
         </span>
         <% elsif mount.sterile? %>
