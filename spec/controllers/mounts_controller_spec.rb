@@ -99,6 +99,50 @@ RSpec.describe MountsController, type: :controller do
     end
   end
 
+  describe '#destroy' do
+    before do
+      @user = create(:user)
+      @mount = create(:mount, owner: @user)
+    end
+
+    context 'as the correct user' do
+      it 'deletes the mount' do
+        sign_in @user
+        expect do
+          delete :destroy, params: { id: @mount.id }
+        end.to change(@user.mounts, :count).by -1
+      end
+    end
+    context 'as another user' do
+      context 'as the incorrect user' do
+        before do
+          @other_user = create(:user)
+          sign_in @other_user
+        end
+        it 'does not delete the mount' do
+          expect do
+            delete :destroy, params: { id: @mount.id }
+          end.to change(@user.mounts, :count).by 0
+        end
+        it 'redirects to the mount index' do
+          delete :destroy, params: { id: @mount.id }
+          expect(response).to redirect_to mounts_path
+        end
+      end
+      context 'as a guest user' do
+        it 'does not delete the mount' do
+          expect do
+            delete :destroy, params: { id: @mount.id }
+          end.to change(@user.mounts, :count).by 0
+        end
+        it 'redirects to the sign_in page' do
+          delete :destroy, params: { id: @mount.id }
+          expect(response).to redirect_to '/users/sign_in'
+        end
+      end
+    end
+  end
+
   describe '#mate' do
     before do
       @user = create(:user)

@@ -329,28 +329,29 @@ input[type='radio'] {
 }
 
 .form-name {
-  padding: 0px 20px 5px;
+  border-radius: 7px 7px 0px 0px;
+  background-color: $myblack;
+  padding: 5px 20px 5px;
+  color: $mywhite;
 }
 
 .global-mount-form {
   @extend %form;
-
-  border-top: 10px solid $myblack;
 }
 
 .mount-form {
   @extend %form;
-
-  h2 {
-    background-color: $myblack;
-    color: $mywhite;
-  }
 }
 
 .test-form {
   width: 45%;
   display: inline-block;
   margin: 10px 20px;
+}
+
+.delete-mount {
+  margin-top: 10px;
+  display: block;
 }
 
 /* MOUNT CSS */

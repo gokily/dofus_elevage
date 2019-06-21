@@ -1,6 +1,6 @@
 class MountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user?, only: [:edit, :update, :mate, :birth]
+  before_action :correct_user?, only: [:edit, :update, :mate, :birth, :destroy]
   before_action only: [:birth_create] do
     correct_parents?(params[:children])
   end
@@ -29,11 +29,17 @@ class MountsController < ApplicationController
 
   def update
     if @mount.update_attributes(mount_params)
-      flash[:success] = 'Mount edited'
+      flash[:success] = 'Mount edited.'
       redirect_back(fallback_location: @mount)
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @mount.destroy
+      flash[:success] = 'Mount deleted.'
+      redirect_back fallback_location: mounts_path
   end
 
   def pregnant

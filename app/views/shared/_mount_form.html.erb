@@ -1,5 +1,6 @@
-<h2 class="form-name">New mount</h2>
+<h2 class="form-name"><%= form_title %></h2>
 <%= form_for(@mount, url: form_url, html: { class: "form-content" }) do |f| %>
+
 
   <%= render 'shared/error_messages', object: f.object %>
 
@@ -22,8 +23,13 @@
   <%= f.radio_button :pregnant, false %>
   <br>
   <%= f.label :reproduction %>
-  <%= f.number_field :reproduction, in: 0..4, class: 'form-control', value: 0%>
+  <%= f.number_field :reproduction, in: 0..4, class: 'form-control',
+                     value: @mount.reproduction || 4 %>
   <%= f.submit button_text, class: "btn btn-success" %>
 
+  <% if (form_title == 'Edit mount') %>
+    <%= link_to 'Delete mount', mount_path(@mount.id), method: 'delete',
+                class: 'btn btn-danger delete-mount'%>
+  <% end %>
 
 <% end %>
