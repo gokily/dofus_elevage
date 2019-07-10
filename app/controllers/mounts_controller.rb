@@ -1,12 +1,15 @@
 class MountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user?, only: [:edit, :update, :mate, :birth, :destroy]
+  before_action :correct_user?, only: [:show, :edit, :update, :mate, :birth, :destroy]
   before_action only: [:birth_create] do
     correct_parents?(params[:children])
   end
 
   def index
     @mounts = current_user.mounts.paginate(page: params[:page], per_page: 15)
+  end
+
+  def show
   end
 
   def new
@@ -18,7 +21,7 @@ class MountsController < ApplicationController
     @mount.pregnant = false
     if @mount.save
       flash[:success] = "New mount added!"
-      redirect_back(fallback_location: mounts_path)
+      redirect_to mounts_path
     else
       render 'new'
     end

@@ -15,25 +15,7 @@
     <% if path == 'breed' %>
       <%= link_to 'Mate', mate_mount_path(@mount, parent2: mount.id), class: "btn btn-primary mount-edit" %>
     <% else %>
-      <%= link_to 'Edit', edit_mount_path(mount), class: "btn btn-primary mount-edit" %>
-
-      <% if mount.pregnant %>
-        <span class="dropdown">
-          <button class="btn btn-info mount-give-birth dropdown-toggle"
-                  type="button" id="birth-number" data-toggle="dropdown">Birth</button>
-          <div class="dropdown-menu dropdown-menu-right birth-dropdown-menu"
-               aria-labelledby="birth-number">
-            <%= link_to '+1', birth_mount_path(mount.id, n_child: 1),
-                        class: "btn btn-info mount-edit" %>
-            <%= link_to '+2', birth_mount_path(mount.id, n_child: 2),
-                        class: "btn btn-info mount-edit" %>
-          </div>
-        </span>
-        <% elsif mount.sterile? %>
-          <button class="btn btn-danger mount-sterile">Sterile</button>
-        <% else %>
-          <%= link_to 'Breed', breed_mount_path(mount.id), class: "btn btn-warning mount-breed" %>
-        <% end %>
+      <%= render 'shared/mount_buttons', mount: mount %>
       <% end %>
   </span>
 </li>

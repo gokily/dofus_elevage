@@ -121,4 +121,56 @@ sex and pregnant status' do
       end
     end
   end
+
+  describe 'get the ancestors to the n-th degree' do
+    before do
+      @user = build(:user)
+      @mount = build(:mount, owner: @user, name: 'peco')
+    end
+
+    context 'for a mount with no known parents' do
+      it 'returns a hash with all values set to nil' do
+        ret = @mount.ancestors(1)
+        expect(ret.length).to eql 2
+        expect(ret['F']).to be_nil
+        expect(ret['M']).to be_nil
+      end
+    end
+
+    context 'for a mount with known ancestors' do
+      before do
+        @father = build(:mount, owner: @user, name: 'father', sex: 'M')
+        @mother = build(:mount, owner: @user, name: 'mother', sex: 'F')
+        @mount.add_father(@father)
+        @mount.add_mother(@mother)
+      end
+
+      context 'for a mount with a father and mother' do
+        it 'returns a hash with the id of the father and mother' do
+          ret = @mount.ancestors(1)
+          expect(ret['F'].id).to eql @father.id
+          expect(ret['M'].id).to eql @mother.id
+        end
+      end
+
+      context 'for a mount with a FF, MF and MM' do
+        it 'returns a hash with the parents and the known grand-parents' do
+          mf = build(:mount, owner: @user, name: 'mf', sex: 'M')
+          ff = build(:mount, owner: @user, name: 'ff', sex: 'M')
+          mm = build(:mount, owner: @user, name: 'mm', sex: 'F')
+          @mother.add_father(mf)
+          @mother.add_mother(mm)
+          @father.add_father(ff)
+          ret = @mount.ancestors(2)
+          expect(ret.length).to eql(6)
+          expect(ret['MM'].id).to eql mm.id
+          expect(ret['MF'].id).to eql mf.id
+          expect(ret.has_key?('FM')).to be true
+          expect(ret['FM']).to be_nil
+          expect(ret['FF'].id).to eql ff.id
+        end
+      end
+    end
+
+  end
 end

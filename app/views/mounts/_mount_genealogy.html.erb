@@ -1,0 +1,24 @@
+<% ancestors = mount.ancestors(3) %>
+<% gp = %w[ FF FM MF MM ] %>
+<% parent = %w[ F M ] %>
+<div class="row">
+  <div class="col-6">
+    <div class="row gp-row">
+      <% gp.each do |ind| %>
+        <div class="col-3">
+          <%= ancestors[ind] ? ancestors[ind].name : 'NA' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row parent-row">
+      <% parent.each do |ind| %>
+        <div class="col-6">
+          <%= ancestors[ind] ? ancestors[ind].name : 'NA' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-6">
+
+  </div>
+</div>

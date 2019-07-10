@@ -407,7 +407,7 @@ li.mount {
   height: 35px;
   width: 35px;
   background-color: black;
-  margin: 0px 7px;
+  margin: 0 7px;
 }
 
 .mount-name {
@@ -465,9 +465,25 @@ div.dropdown-menu.birth-dropdown-menu {
 }
 
 /* MOUNT SHOW CSS */
-.mount-show {
+
+.mount-info, .mount-genealogy {
   @extend %round-border;
   @extend %shadow;
   background-color: $mywhite;
-  padding: 15px;
+}
+
+.mount-info {
+  padding: 20px;
+}
+.mount-show .mount-img {
+  width: 60px;
+  height: 60px;
+}
+
+.mount-info-info {
+  margin-top: 15px;
+}
+
+.mount-genealogy {
+  text-align: center;
 }

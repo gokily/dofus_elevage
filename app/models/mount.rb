@@ -22,6 +22,16 @@ class Mount < ApplicationRecord
     self.reproduction == 0 && self.pregnant == false
   end
 
+  def repro_status
+    if self.breedable?
+      return 'Fertile'
+    elsif self.sterile?
+      return 'Sterile'
+    else
+      return 'Pregnant'
+    end
+  end
+
   def mate(other)
     if (self.sex != other.sex) && self.breedable? && other.breedable?
       if (self.sex == 'F')
@@ -42,4 +52,33 @@ class Mount < ApplicationRecord
       return 0
     end
   end
+
+  def translate_sex
+    sex == 'M' ? 'Male' : 'Female'
+  end
+
+  def ancestors(n)
+    i = 0
+    ret = {}
+    prev_gen = []
+    while i < n
+      if i.zero?
+        new_gen = {}
+        new_gen['F'] = Mount.find_by(id: father_id)
+        new_gen['M'] = Mount.find_by(id: mother_id)
+      else
+        new_gen = {}
+        prev_gen.each do |key|
+          ind = Mount.find_by(id: ret[key])
+          new_gen[key + 'F'] = ind ? Mount.find_by(id: ind.father_id) : nil
+          new_gen[key + 'M'] = ind ? Mount.find_by(id: ind.mother_id) : nil
+        end
+      end
+      prev_gen = new_gen.keys
+      ret = ret.merge(new_gen)
+      i += 1
+    end
+    ret
+  end
+
 end
