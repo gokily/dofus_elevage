@@ -2,16 +2,33 @@
 
 class Mount < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
-  default_scope -> {order(created_at: :desc)}
+  default_scope -> { order(created_at: :desc) }
   has_parents(options = {current_spouse: true})
   validates :name, presence: true, uniqueness: {scope: :user_id}
   validates :owner, presence: true
   validates :color, presence: true
   validates :reproduction, presence: true, inclusion: 0..4
   validates :pregnant, inclusion: [true, false]
+  validate :right_color
 
   def self.colors
-    %w[Doree Indigo Ebene Pourpre Orchidee Roux Amande Prune Emeraude Ivoire Turquoise]
+    ['Amande', 'Amande et Doree', 'Amande et Ebene', 'Amande et Emeraude',
+     'Amande et Indigo', 'Amande et Indigo', 'Amande et Ivoire',
+     'Amande et Orchidee', 'Amande et Pourpre', 'Amande et Rousse',
+     'Amande et Turquoise', 'Doree', 'Doree et Ebene', 'Doree et Emeraude',
+     'Doree et Indigo', 'Doree et Ivoire', 'Doree et Orchidee',
+     'Doree et Pourpre', 'Doree et Rousse', 'Doree et Turquoise',
+     'Ebene', 'Ebene et Emeraude', 'Ebene et Indigo', 'Ebene et Orchidee',
+     'Ebene et Pourpre', 'Ebene et Rousse', 'Ebene et Turquoise',
+     'Emeraude', 'Emeraude et Indigo', 'Emeraude et Ivoire',
+     'Emeraude et Turquoise', 'Indigo', 'Indigo et Ivoire', 'Indigo et Orchidee',
+     'Indigo et Pourpre', 'Indigo et Rousse', 'Indigo et Turquoise', 'Ivoire',
+     'Ivoire et Orchidee', 'Ivoire et Pourpre', 'Ivoire et Rousse',
+     'Ivoire et Turquoise', 'Orchidee', 'Orchidee et Pourpre', 'Orchidee et Rousse',
+     'Pourpre', 'Pourpre et Rousse', 'Prune', 'Prune et Doree', 'Prune et Ebene',
+     'Prune et Emeraude', 'Prune et Indigo', 'Prune et Ivoire', 'Prune et Orchidee',
+     'Prune et Pourpre', 'Prune et Rousse', 'Prune et Turquoise', 'Rousse',
+     'Turquoise', 'Turquoise et Orchidee', 'Turquoise et Pourpre', 'Turquoise et Rousse']
   end
 
   def breedable?
@@ -81,4 +98,11 @@ class Mount < ApplicationRecord
     ret
   end
 
+  private
+
+  def right_color
+    unless Mount.colors.include?(color)
+      errors.add(:color, 'Color must be within the possible choices.')
+    end
+  end
 end

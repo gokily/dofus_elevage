@@ -32,6 +32,12 @@ sex and pregnant status' do
     expect(@mount.errors[:color]).to include("can't be blank")
   end
 
+  it 'is invalid if the color is not in the defined ones' do
+    @mount.color = 'super'
+    @mount.valid?
+    expect(@mount.errors[:color]).to include('Color must be within the possible choices.')
+  end
+
   it 'is invalid without a reproduction count' do
     @mount.reproduction = nil
     @mount.valid?
