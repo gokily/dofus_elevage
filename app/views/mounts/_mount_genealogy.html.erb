@@ -6,6 +6,7 @@
     <div class="row gp-row">
       <% gp.each do |ind| %>
         <div class="col-3">
+          <%= image_tag "dragodinde/dd_amande.png", class: "genealogy-img"%>
           <%= ancestors[ind] ? ancestors[ind].name : 'NA' %>
         </div>
       <% end %>
