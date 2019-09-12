@@ -398,12 +398,12 @@ li.mount {
   background-color: $mylightgrey;
   margin-top: 20px;
 
-  .mount-img {
+  .mount-color-img {
     background-color: inherit;
   }
 }
 
-.mount-img {
+.mount-color-img {
   height: 35px;
   width: 35px;
   background-color: black;
@@ -476,7 +476,13 @@ div.dropdown-menu.birth-dropdown-menu {
   padding: 20px;
 }
 .mount-show .mount-img {
-  width: 60px;
+  width: 100px;
+  height: 100px;
+}
+
+.genealogy-img {
+  display: block;
+  margin: auto;
   height: 60px;
 }
 
@@ -486,4 +492,5 @@ div.dropdown-menu.birth-dropdown-menu {
 
 .mount-genealogy {
   text-align: center;
+  padding-top: 20px;
 }

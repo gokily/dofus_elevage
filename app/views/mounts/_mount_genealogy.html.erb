@@ -1,25 +1,40 @@
-<% ancestors = mount.ancestors(3) %>
-<% gp = %w[ FF FM MF MM ] %>
-<% parent = %w[ F M ] %>
+
 <div class="row">
   <div class="col-6">
-    <div class="row gp-row">
-      <% gp.each do |ind| %>
+    <div class="row ggp-row">
+      <% @ggpf.each do |ind| %>
         <div class="col-3">
-          <%= image_tag "dragodinde/dd_amande.png", class: "genealogy-img"%>
-          <%= ancestors[ind] ? ancestors[ind].name : 'NA' %>
+          <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+          <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
         </div>
       <% end %>
     </div>
-    <div class="row parent-row">
-      <% parent.each do |ind| %>
+    <div class="row gp-row">
+      <% @gpf.each do |ind| %>
         <div class="col-6">
-          <%= ancestors[ind] ? ancestors[ind].name : 'NA' %>
+          <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+          <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
         </div>
       <% end %>
     </div>
+
   </div>
   <div class="col-6">
-
+    <div class="row ggp-row">
+      <% @ggpm.each do |ind| %>
+        <div class="col-3">
+          <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+          <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row gp-row">
+      <% @gpm.each do |ind| %>
+        <div class="col-6">
+          <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+          <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
