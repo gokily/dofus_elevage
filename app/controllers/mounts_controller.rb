@@ -12,9 +12,9 @@ class MountsController < ApplicationController
   def show
     @ancestors = @mount.ancestors(3)
     @ggpf = %w[FFF FFM FMF FMM]
-    @gpf = %w[FF FM]
     @ggpm = %w[MFF MFM MMF MMM]
-    @gpm = %w[MF MM]
+    @gp = %w[FF FM MF MM]
+    @parent = %w[F M]
   end
 
   def new
