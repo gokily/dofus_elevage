@@ -1,0 +1,31 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.label :name %>
+<%= f.text_field :name, class: 'form-control' %>
+
+<%= f.label :color %>
+<%= f.select(:color, Mount.colors.map { |color| [color, color] }) %>
+
+<%= f.label :sex %><br>
+<%= f.label :sex, 'Male', value: 'M' %>
+<%= f.radio_button :sex, 'M' %>
+<%= f.label :sex, 'Female', value: 'F' %>
+<%= f.radio_button :sex, 'F' %>
+<br>
+<%= f.label :pregnant, 'Pregnant' %><br>
+<%= f.label :pregnant, 'Yes', value: true %>
+<%= f.radio_button :pregnant, true %>
+<%= f.label :pregnant, 'No', value: false %>
+<%= f.radio_button :pregnant, false %>
+<br>
+<%= f.label :reproduction %>
+<%= f.number_field :reproduction, in: 0..4, class: 'form-control',
+                   value: birth ? 4 : @mount.reproduction || 4 %>
+<% if birth %>
+  <%= f.label :father %>
+  <%= f.text_field :father, class: 'form-control', disabled: true, value: @father.name %>
+  <%= f.hidden_field :father_id, class: 'form-control', value: @father.id %>
+  <%= f.label :mother %>
+  <%= f.text_field :mother, class: 'form-control', disabled: true, value: @mother.name %>
+  <%= f.hidden_field :mother_id, class: 'form-control', value: @mother.id %>
+<% end %>

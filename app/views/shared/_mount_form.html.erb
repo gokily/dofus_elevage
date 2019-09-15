@@ -1,30 +1,6 @@
 <h2 class="form-name"><%= form_title %></h2>
 <%= form_for(@mount, url: form_url, html: { class: "form-content" }) do |f| %>
-
-
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <%= f.label :name %>
-  <%= f.text_field :name, class: 'form-control' %>
-
-  <%= f.label :color %>
-  <%= f.select(:color, Mount.colors.map { |color| [ color, color ] }) %>
-
-  <%= f.label :sex %><br>
-  <%= f.label :sex, 'Male', value: 'M' %>
-  <%= f.radio_button :sex, 'M' %>
-  <%= f.label :sex, 'Female', value: 'F' %>
-  <%= f.radio_button :sex, 'F' %>
-  <br>
-  <%= f.label :pregnant, 'Pregnant'%><br>
-  <%= f.label :pregnant, 'Yes', value: true %>
-  <%= f.radio_button :pregnant, true %>
-  <%= f.label :pregnant, 'No', value: false %>
-  <%= f.radio_button :pregnant, false %>
-  <br>
-  <%= f.label :reproduction %>
-  <%= f.number_field :reproduction, in: 0..4, class: 'form-control',
-                     value: @mount.reproduction || 4 %>
+  <%= render 'shared/mount_form_two', f: f, birth: false %>
   <%= f.submit button_text, class: "btn btn-success" %>
 
   <% if (form_title == 'Edit mount') %>
