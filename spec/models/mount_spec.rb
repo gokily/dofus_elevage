@@ -62,6 +62,17 @@ sex and pregnant status' do
     @mount.pregnant = nil
     expect(@mount).to_not be_valid
   end
+
+  it 'is invalid without a sex status' do
+    @mount.sex = nil
+    expect(@mount).to_not be_valid
+  end
+
+  it 'is invalid for a male to be pregnant' do
+    @mount.sex = 'M'
+    @mount.pregnant = true
+    expect(@mount).to_not be_valid
+  end
   it 'does not allow duplicate mount names per user' do
     @user.save
     @mount.save

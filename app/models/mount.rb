@@ -10,6 +10,7 @@ class Mount < ApplicationRecord
   validates :reproduction, presence: true, inclusion: 0..4
   validates :pregnant, inclusion: [true, false]
   validate :right_color
+  validate :male_pregnant
 
   def self.colors
     ['Amande', 'Amande et Doree', 'Amande et Ebene', 'Amande et Emeraude',
@@ -111,6 +112,12 @@ class Mount < ApplicationRecord
   def right_color
     unless Mount.colors.include?(color)
       errors.add(:color, 'Color must be within the possible choices.')
+    end
+  end
+
+  def male_pregnant
+    if pregnant == true && sex == 'M'
+      errors.add(:pregnant, 'Male cannot be pregnant')
     end
   end
 end
