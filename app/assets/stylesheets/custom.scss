@@ -397,36 +397,27 @@ li.mount {
 .mount-legend {
   background-color: $mylightgrey;
   margin-top: 20px;
-
-  .mount-color-img {
-    background-color: inherit;
-  }
-}
-
-.mount-color-img {
-  height: 35px;
-  width: 35px;
-  background-color: black;
-  margin: 0 7px;
 }
 
 .mount-name {
   border-right: $myblack solid 1px;
   flex-basis: 15%;
   flex-grow: 1;
-}
-.mount-name a {
   display: inline-block;
   width: 100%;
-}
-
-.mount-name a {
   color: $myblack;
 }
 
 .mount-color {
   border-right: $myblack solid 1px;
-  flex-basis: 15%;
+  flex-basis: 8%;
+}
+
+.color-icon {
+  display: block;
+  height: 35px;
+  width: 35px;
+  margin: 0px auto;
 }
 
 .mount-sex {
@@ -436,7 +427,7 @@ li.mount {
 
 .mount-reproduction {
   border-right: $myblack solid 1px;
-  flex-basis: 15%;
+  flex-basis: 10%;
 }
 
 .mount-pregnant {

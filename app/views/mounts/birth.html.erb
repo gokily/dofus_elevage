@@ -12,7 +12,7 @@
           <%= f.text_field :name, class: 'form-control' %>
 
           <%= f.label :color %>
-          <%= f.text_field :color, class: 'form-control' %>
+          <%= f.select(:color, Mount.colors.map { |color| [ color, color ] }) %>
 
           <%= f.label :father %>
           <%= f.text_field :father, class: 'form-control', disabled: true, value: @father.name %>

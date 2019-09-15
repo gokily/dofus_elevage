@@ -8,9 +8,6 @@
   <%= f.text_field :name, class: 'form-control' %>
 
   <%= f.label :color %>
-  <%= f.text_field :color, class: 'form-control' %>
-
-  <%= f.label :color %>
   <%= f.select(:color, Mount.colors.map { |color| [ color, color ] }) %>
 
   <%= f.label :sex %><br>

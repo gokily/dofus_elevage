@@ -4,7 +4,7 @@
       <div class="col-6">
         <div class="row mount-info-head">
           <div class="col-6">
-            <%= image_tag "dragodinde/dd_amande.png", class: "mount-img"%>
+            <%= image_tag @mount.get_img, class: "mount-img"%>
           </div>
           <div class="col-6">
             <%= render 'shared/mount_buttons', mount: @mount %>

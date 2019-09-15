@@ -1,7 +1,8 @@
 <li class="mount" id="mount-<%= mount.id %>">
   <%= link_to mount.name, mount_path(mount.id), class: "mount-name" %>
-  <span class="mount-color-img"></span>
-  <span class="mount-color"><%= mount.color %></span>
+  <span class="mount-color">
+    <%= image_tag mount.get_icon, class: 'color-icon' %>
+  </span>
   <span class="mount-sex"><%= mount.sex == 'F' ? 'Female' : 'Male' %></span>
   <span class="mount-reproduction"><%= mount.reproduction %></span>
   <span class="mount-pregnant">

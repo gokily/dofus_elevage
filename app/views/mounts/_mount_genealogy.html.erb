@@ -4,7 +4,7 @@
     <div class="row ggp-row">
       <% @ggpf.each do |ind| %>
         <div class="col-3">
-          <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+          <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
           <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
         </div>
       <% end %>
@@ -14,7 +14,7 @@
     <div class="row ggp-row">
       <% @ggpm.each do |ind| %>
         <div class="col-3">
-          <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+          <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
           <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
         </div>
       <% end %>
@@ -22,14 +22,14 @@
   </div>
     <% @gp.each do |ind| %>
       <div class="col-3">
-        <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+        <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
         <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
       </div>
     <% end %>
 
   <% @parent.each do |ind| %>
     <div class="col-6">
-      <%= image_tag @ancestors[ind] ? "dragodinde/dd_amande.png" : "icon/interrogation.png", class: "genealogy-img"%>
+      <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
       <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
     </div>
   <% end %>
