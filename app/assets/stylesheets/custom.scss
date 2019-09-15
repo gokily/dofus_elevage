@@ -310,6 +310,10 @@ input[type='radio'] {
   margin-bottom: 15px;
 }
 
+input#user_remember_me {
+  width: auto;
+}
+
 %form {
   margin-top: 2vh;
   @extend %round-border;
@@ -320,7 +324,7 @@ input[type='radio'] {
 
 #error_explanation {
   ul {
-    color: #a94442;
+    color: $state-danger-text;
     margin: -5px 0 30px 0;
   }
 }
@@ -359,6 +363,10 @@ input[type='radio'] {
 }
 
 .mount-form {
+  @extend %form;
+}
+
+.devise-form {
   @extend %form;
 }
 
@@ -484,3 +492,4 @@ div.dropdown-menu.birth-dropdown-menu {
   text-align: center;
   padding-top: 20px;
 }
+
