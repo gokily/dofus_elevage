@@ -1,36 +1,12 @@
 <h3>Genealogy</h3>
 <div class="row genealogy-row">
+  <% [@ggpf, @ggpm].each do |ggp| %>
   <div class="col-6">
     <div class="row ggp-row">
-      <% @ggpf.each do |ind| %>
-        <div class="col-3">
-          <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
-          <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
-        </div>
-      <% end %>
+      <%= render 'mounts/mount_genealogy_row', group: ggp, colwidth: 3 %>
     </div>
   </div>
-  <div class="col-6">
-    <div class="row ggp-row">
-      <% @ggpm.each do |ind| %>
-        <div class="col-3">
-          <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
-          <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-    <% @gp.each do |ind| %>
-      <div class="col-3">
-        <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
-        <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
-      </div>
-    <% end %>
-
-  <% @parent.each do |ind| %>
-    <div class="col-6">
-      <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
-      <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
-    </div>
   <% end %>
+    <%= render 'mounts/mount_genealogy_row', group: @gp, colwidth: 3 %>
+  <%= render 'mounts/mount_genealogy_row', group: @parent, colwidth: 6 %>
 </div>

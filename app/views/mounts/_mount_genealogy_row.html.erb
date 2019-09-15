@@ -1,0 +1,6 @@
+<% group.each do |ind| %>
+  <div class="col-<%= colwidth %>">
+    <%= image_tag @ancestors[ind] ? @ancestors[ind].get_img : "icon/interrogation.png", class: "genealogy-img"%>
+    <%= @ancestors[ind] ? @ancestors[ind].name : '???' %>
+  </div>
+<% end %>
