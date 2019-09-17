@@ -1,7 +1,7 @@
 <h2 class="form-name"><%= form_title %></h2>
 <%= form_for(@mount, url: form_url, html: { class: "form-content" }) do |f| %>
   <%= render 'shared/mount_form_two', f: f, birth: false %>
-  <%= f.submit button_text, class: "btn btn-success" %>
+  <%= f.submit button_text, class: "btn btn-info" %>
 
   <% if (form_title == 'Edit mount') %>
     <%= link_to 'Delete mount', mount_path(@mount.id), method: 'delete',

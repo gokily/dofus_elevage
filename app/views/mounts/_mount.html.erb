@@ -14,7 +14,8 @@
   </span>
   <span class="mount-button">
     <% if path == 'breed' %>
-      <%= link_to 'Mate', mate_mount_path(@mount, parent2: mount.id), class: "btn btn-primary mount-edit" %>
+      <%= link_to 'Mate', mate_mount_path(@mount, parent2: mount.id),
+                  class: "btn btn-warning mount-edit" %>
     <% else %>
       <%= render 'shared/mount_buttons', mount: mount %>
       <% end %>
