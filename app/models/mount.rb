@@ -76,7 +76,7 @@ class Mount < ApplicationRecord
   end
 
   def get_icon
-    'icon/dd/' + color.downcase.sub(' et ', '_')
+    'icon/' + color.downcase.sub(' et ', '_')
   end
 
   def get_img
