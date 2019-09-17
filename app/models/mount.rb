@@ -107,6 +107,18 @@ class Mount < ApplicationRecord
     ret
   end
 
+  def consang?(mount, n)
+    ances1 = ancestors(n)
+    ances2 = mount.ancestors(n)
+    ances1.each do |key, ind|
+      next if ind.nil?
+      ances2.each do |key2, ind2|
+        return true if !ind2.nil? && ind.id == ind2.id
+      end
+    end
+    false
+  end
+
   private
 
   def right_color

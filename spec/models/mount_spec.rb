@@ -90,7 +90,7 @@ sex and pregnant status' do
     expect(other_mount).to be_valid
   end
 
-  describe 'look if a mount can breed' do
+  describe 'breedable? looks if a mount can breed' do
     context 'for a fertile mount with at least 1 reproduction left' do
       it 'returns true' do
         @mount.pregnant = false
@@ -114,9 +114,9 @@ sex and pregnant status' do
     end
   end
 
-  describe 'mate two mounts together' do
+  describe 'mate mates two mounts together' do
     before do
-      @mount.update_attributes({ reproduction: 4, pregnant: false, sex: 'M' })
+      @mount.update_attributes({reproduction: 4, pregnant: false, sex: 'M'})
       @second = build(:mount, owner: @user, reproduction: 4, pregnant: false, sex: 'F')
     end
     context 'with two breedable mounts of the opposite sex' do
@@ -139,12 +139,7 @@ sex and pregnant status' do
     end
   end
 
-  describe 'get the ancestors to the n-th degree' do
-    before do
-      @user = build(:user)
-      @mount = build(:mount, owner: @user, name: 'peco')
-    end
-
+  describe 'ancestors(n) gets the ancestors to the n-th degree' do
     context 'for a mount with no known parents' do
       it 'returns a hash with all values set to nil' do
         ret = @mount.ancestors(1)
@@ -188,6 +183,50 @@ sex and pregnant status' do
         end
       end
     end
+  end
 
+  describe 'consang?(mount, n) looks if the mounts are consanguineous at the \
+            n-th degree' do
+    before do
+      @father = build(:mount, owner: @user, name: 'father', sex: 'M')
+      @mother = build(:mount, owner: @user, name: 'mother', sex: 'F')
+      @other = build(:mount, owner: @user, name: 'other')
+      @mount.add_father(@father)
+      @mount.add_mother(@mother)
+    end
+
+    context 'for two unrelated mounts' do
+      it 'returns false' do
+        expect(@mount.consang?(@other, 3)).to be false
+      end
+    end
+
+    context 'for two related mounts' do
+      before do
+        @other.father_id = @father.id
+      end
+      it 'returns true' do
+        expect(@mount.consang?(@other, 3)).to be true
+        expect(@mount.consang?(@other, 1)).to be true
+      end
+    end
+
+    context 'for two related mounts at the grand parent level' do
+      before do
+        @ofather = create(:mount, owner: @user, name: 'ofather', sex: 'M')
+        @ff = create(:mount, owner: @user, name: 'ff', sex: 'M')
+        @other.father_id = @ofather.id
+        @ofather.father_id = @ff.id
+        @father.father_id = @ff.id
+        @ofather.save
+        @father.save
+      end
+      it 'returns false for n = 1' do
+        expect(@mount.consang?(@other, 1)).to be false
+      end
+      it 'returns true for n = 2' do
+        expect(@mount.consang?(@other, 2)).to be true
+      end
+    end
   end
 end

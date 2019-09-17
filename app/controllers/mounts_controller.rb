@@ -58,7 +58,9 @@ class MountsController < ApplicationController
     @mount = current_user.mounts.find(params[:id])
     @mates = current_user.mounts\
                          .where('sex == ? AND pregnant == 0 AND reproduction != 0', \
-                                @mount.sex == 'M' ? 'F' : 'M').paginate(page: params[:page])
+                               @mount.sex == 'M' ? 'F' : 'M',).select { |ind| !ind.consang?(@mount, 3) }\
+                               .paginate(page: params[:page])
+
   end
 
   def mate

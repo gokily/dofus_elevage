@@ -39,7 +39,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.3.1'
 gem 'nokogiri', '~> 1.10.4'
 gem 'devise', '~> 4.7.1'
-gem 'will_paginate',           '3.1.7'
+gem 'will_paginate', '3.1.7'
 gem 'will_paginate-bootstrap'
 gem 'genealogy'
 gem 'jquery-rails'
