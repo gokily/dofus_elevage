@@ -12,6 +12,13 @@ class Mount < ApplicationRecord
   validate :right_color
   validate :male_pregnant
 
+  scope :mates, ->(mount, consang) {
+    where('sex == ? AND pregnant == 0 AND reproduction != 0', \
+          mount.sex == 'M' ? 'F' : 'M').select do |ind|
+      consang == 'false' ? !ind.consang?(mount, 3) : true
+    end
+  }
+
   def self.colors
     ['Amande', 'Amande et Doree', 'Amande et Ebene', 'Amande et Emeraude',
      'Amande et Indigo', 'Amande et Indigo', 'Amande et Ivoire',
@@ -110,9 +117,9 @@ class Mount < ApplicationRecord
   def consang?(mount, n)
     ances1 = ancestors(n)
     ances2 = mount.ancestors(n)
-    ances1.each do |key, ind|
+    ances1.each do |_key, ind|
       next if ind.nil?
-      ances2.each do |key2, ind2|
+      ances2.each do |_key2, ind2|
         return true if !ind2.nil? && ind.id == ind2.id
       end
     end

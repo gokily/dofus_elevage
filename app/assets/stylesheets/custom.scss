@@ -380,7 +380,7 @@ input#user_remember_me {
   display: block;
 }
 
-/* MOUNT CSS */
+/* MOUNT LIST CSS */
 
 .mount-page {
   background-color: $mywhite;
@@ -459,6 +459,10 @@ li span.mount-button {
   margin-bottom: 15px;
 }
 
+.breed-btn {
+  float: right;
+  margin: 0 5px 15px;
+}
 div.dropdown-menu.birth-dropdown-menu {
   min-width: max-content;
   padding: 5px;

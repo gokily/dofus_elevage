@@ -2,6 +2,12 @@
   <div class="col-md-12 mount-page">
     <% if path == 'breed' %>
       <h3>Choose a mates for <%= @mount.name %></h3>
+      <%= link_to('Show consanguineous mates',
+                  breed_mount_path(@mount.id, consang: true),
+                  class: "btn btn-warning breed-btn #{'disabled' if params[:consang] == 'true'}") %>
+      <%= link_to('Show non consanguineous mates',
+                  breed_mount_path(@mount.id, consang: false),
+                  class: "btn btn-success breed-btn #{'disabled' if params[:consang] == 'false'}") %>
     <% else %>
       <%= link_to('New mount', new_mount_path, class: "btn btn-info new-mount") %>
     <% end %>
