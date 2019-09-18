@@ -389,6 +389,10 @@ input#user_remember_me {
   @extend %shadow;
 }
 
+.mount-list-nav li {
+  margin: 0 2px;
+}
+
 li.mount {
   clear: both;
   border: $myblack solid 1px;

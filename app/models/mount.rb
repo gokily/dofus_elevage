@@ -19,6 +19,9 @@ class Mount < ApplicationRecord
     end
   }
 
+  scope :pregnant, -> { where('pregnant == 1') }
+  scope :fertile, -> { where('pregnant == 0 AND reproduction != 0') }
+
   def self.colors
     ['Amande', 'Amande et Doree', 'Amande et Ebene', 'Amande et Emeraude',
      'Amande et Indigo', 'Amande et Indigo', 'Amande et Ivoire',

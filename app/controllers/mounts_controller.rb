@@ -6,7 +6,17 @@ class MountsController < ApplicationController
   end
 
   def index
-    @mounts = current_user.mounts.paginate(page: params[:page], per_page: 15)
+    case params[:mounts]
+    when 'fertile'
+      @mounts = current_user.mounts.fertile.paginate(page: params[:page], per_page: 15)
+      @btn_style = %w[btn-secondary btn-success btn-secondary]
+    when 'pregnant'
+      @mounts = current_user.mounts.pregnant.paginate(page: params[:page], per_page: 15)
+      @btn_style = %w[btn-secondary btn-secondary btn-warning]
+    else
+      @mounts = current_user.mounts.paginate(page: params[:page], per_page: 15)
+      @btn_style = %w[btn-info btn-secondary btn-secondary]
+    end
   end
 
   def show
@@ -48,10 +58,6 @@ class MountsController < ApplicationController
     @mount.destroy
     flash[:success] = 'Mount deleted.'
     redirect_back fallback_location: mounts_path
-  end
-
-  def pregnant
-    @mounts = current_user.mounts.where(pregnant: true).paginate(page: params[:page])
   end
 
   def breed

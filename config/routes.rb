@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   end
   resources :mounts do
     collection do
-      get :pregnant
       post :birth_create
     end
     member do
