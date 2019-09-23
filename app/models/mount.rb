@@ -3,18 +3,18 @@
 class Mount < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: :user_id
   default_scope -> { order(created_at: :desc) }
-  has_parents(options = {current_spouse: true})
-  validates :name, presence: true, uniqueness: {scope: :user_id}
+  has_parents(options = { current_spouse: true })
+  validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :owner, presence: true
   validates :color, presence: true
-  validates :reproduction, presence: true, inclusion: 0..4
+  validates :reproduction, presence: true
   validates :pregnant, inclusion: [true, false]
-  validate :right_color
+  validates :type, presence: true, inclusion: %w[Dd Muldo]
   validate :male_pregnant
 
   scope :mates, ->(mount, consang) {
-    where('sex == ? AND pregnant == 0 AND reproduction != 0', \
-          mount.sex == 'M' ? 'F' : 'M').select do |ind|
+    where('sex == ? AND pregnant == 0 AND reproduction != 0 AND type == ?', \
+          mount.sex == 'M' ? 'F' : 'M', mount.type).select do |ind|
       consang == 'false' ? !ind.consang?(mount, 3) : true
     end
   }
@@ -22,38 +22,19 @@ class Mount < ApplicationRecord
   scope :pregnant, -> { where('pregnant == 1') }
   scope :fertile, -> { where('pregnant == 0 AND reproduction != 0') }
 
-  def self.colors
-    ['Amande', 'Amande et Doree', 'Amande et Ebene', 'Amande et Emeraude',
-     'Amande et Indigo', 'Amande et Indigo', 'Amande et Ivoire',
-     'Amande et Orchidee', 'Amande et Pourpre', 'Amande et Rousse',
-     'Amande et Turquoise', 'Doree', 'Doree et Ebene', 'Doree et Emeraude',
-     'Doree et Indigo', 'Doree et Ivoire', 'Doree et Orchidee',
-     'Doree et Pourpre', 'Doree et Rousse', 'Doree et Turquoise',
-     'Ebene', 'Ebene et Emeraude', 'Ebene et Indigo', 'Ebene et Orchidee',
-     'Ebene et Pourpre', 'Ebene et Rousse', 'Ebene et Turquoise',
-     'Emeraude', 'Emeraude et Indigo', 'Emeraude et Ivoire',
-     'Emeraude et Turquoise', 'Indigo', 'Indigo et Ivoire', 'Indigo et Orchidee',
-     'Indigo et Pourpre', 'Indigo et Rousse', 'Indigo et Turquoise', 'Ivoire',
-     'Ivoire et Orchidee', 'Ivoire et Pourpre', 'Ivoire et Rousse',
-     'Ivoire et Turquoise', 'Orchidee', 'Orchidee et Pourpre', 'Orchidee et Rousse',
-     'Pourpre', 'Pourpre et Rousse', 'Prune', 'Prune et Doree', 'Prune et Ebene',
-     'Prune et Emeraude', 'Prune et Indigo', 'Prune et Ivoire', 'Prune et Orchidee',
-     'Prune et Pourpre', 'Prune et Rousse', 'Prune et Turquoise', 'Rousse',
-     'Turquoise', 'Turquoise et Orchidee', 'Turquoise et Pourpre', 'Turquoise et Rousse']
-  end
 
   def breedable?
-    self.reproduction != 0 && self.pregnant == false
+    reproduction != 0 && pregnant == false
   end
 
   def sterile?
-    self.reproduction == 0 && self.pregnant == false
+    reproduction == 0 && pregnant == false
   end
 
   def repro_status
-    if self.breedable?
+    if breedable?
       return 'Fertile'
-    elsif self.sterile?
+    elsif sterile?
       return 'Sterile'
     else
       return 'Pregnant'
@@ -61,17 +42,17 @@ class Mount < ApplicationRecord
   end
 
   def mate(other)
-    if (self.sex != other.sex) && self.breedable? && other.breedable?
-      if (self.sex == 'F')
+    if sex != other.sex && breedable? && other.breedable? && type == other.type
+      if (sex == 'F')
         self.pregnant = true
         self.current_spouse_id = other.id
       else
         other.pregnant = true
-        other.current_spouse_id = self.id
+        other.current_spouse_id = id
       end
       self.reproduction -= 1
       other.reproduction -= 1
-      if self.save! && other.save!
+      if save! && other.save!
         return 1
       else
         return 0
@@ -130,12 +111,6 @@ class Mount < ApplicationRecord
   end
 
   private
-
-  def right_color
-    unless Mount.colors.include?(color)
-      errors.add(:color, 'Color must be within the possible choices.')
-    end
-  end
 
   def male_pregnant
     if pregnant == true && sex == 'M'

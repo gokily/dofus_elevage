@@ -11,17 +11,17 @@
                   class: "btn btn-success breed-btn \\
                   #{'disabled' if params[:consang] == 'false'}") %>
     <% else %>
-      <%= link_to('New mount', new_mount_path, class: "btn btn-info new-mount") %>
+      <%= link_to('New mount', new_path, class: "btn btn-info new-mount") %>
       <ul class="nav nav-pills mount-list-nav" id="myTab">
         <li class="nav-item">
-          <%= link_to('All', mounts_path, class: "nav-link #{@btn_style[0]}") %>
+          <%= link_to('All', type_path, class: "nav-link #{@btn_style[0]}") %>
         </li>
         <li class="nav-item">
-          <%= link_to('Fertile', mounts_path(mounts: 'fertile'),
+          <%= link_to('Fertile', type_path + '?mounts=fertile',
                       class: "nav-link #{@btn_style[1]}") %>
         </li>
         <li class="nav-item">
-          <%= link_to('Pregnant', mounts_path(mounts: 'pregnant'),
+          <%= link_to('Pregnant', type_path + '?mounts=pregnant',
                       class: "nav-link #{@btn_style[2]}") %>
         </li>
       </ul>
@@ -45,10 +45,3 @@
     <% end %>
   </div>
 </div>
-<script>
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var target = this.href.split('#');
-        $('.nav a').filter('[href="#'+target[1]+'"]').tab('show');
-    })
-
-</script>

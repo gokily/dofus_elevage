@@ -5,41 +5,12 @@ class MountsController < ApplicationController
     correct_parents?(params[:children])
   end
 
-  def index
-    case params[:mounts]
-    when 'fertile'
-      @mounts = current_user.mounts.fertile.paginate(page: params[:page], per_page: 15)
-      @btn_style = %w[btn-secondary btn-success btn-secondary]
-    when 'pregnant'
-      @mounts = current_user.mounts.pregnant.paginate(page: params[:page], per_page: 15)
-      @btn_style = %w[btn-secondary btn-secondary btn-warning]
-    else
-      @mounts = current_user.mounts.paginate(page: params[:page], per_page: 15)
-      @btn_style = %w[btn-info btn-secondary btn-secondary]
-    end
-  end
-
   def show
     @ancestors = @mount.ancestors(3)
     @ggpf = %w[FFF FFM FMF FMM]
     @ggpm = %w[MFF MFM MMF MMM]
     @gp = %w[FF FM MF MM]
     @parent = %w[F M]
-  end
-
-  def new
-    @mount = current_user.mounts.build
-  end
-
-  def create
-    @mount = current_user.mounts.build(mount_params)
-    @mount.pregnant = false
-    if @mount.save
-      flash[:success] = "New mount added!"
-      redirect_to mounts_path
-    else
-      render 'new'
-    end
   end
 
   def edit
@@ -72,7 +43,7 @@ class MountsController < ApplicationController
     parent2 = current_user.mounts.find_by(id: params[:parent2])
     if parent1.mate(parent2) == 1
       flash[:success] = "#{parent1.name} mated with #{parent2.name}."
-      redirect_to(mounts_path)
+      redirect_to index_page_of(@mount)
     else
       flash[:danger] = "Cannot mate #{parent1.name} with #{parent2.name}."
       redirect_back(fallback_location: breed_mount_path(parent1.id))
@@ -97,7 +68,7 @@ class MountsController < ApplicationController
     if @children.each(&:save)
       mother = current_user.mounts.find_by(id: @children.first.mother_id)
       mother.update_attributes!(pregnant: false)
-      redirect_to mounts_path, notice: 'Babies successfully added'
+      redirect_to index_page_of(mother), notice: 'Babies successfully added'
     else
       render_birth_create
     end
@@ -105,19 +76,19 @@ class MountsController < ApplicationController
 
   private
 
-  def mount_params
-    params.require(:mount).permit(:name, :color, :sex, :reproduction, :pregnant,
-                                  :father_id, :mother_id)
+  def mount_params(type)
+    params.require(type.to_sym).permit(:name, :color, :sex, :reproduction, :pregnant,
+                                  :father_id, :mother_id, :type)
   end
 
   def mount_params2(my_params)
     my_params.permit(:name, :color, :sex, :reproduction, :pregnant,
-                     :father_id, :mother_id)
+                     :father_id, :mother_id, :type)
   end
 
   def correct_user?
     @mount = current_user.mounts.find_by(id: params[:id])
-    redirect_to mounts_path if @mount.nil?
+    redirect_to home_path if @mount.nil?
   end
 
   def correct_parents?(my_params)
@@ -129,8 +100,13 @@ class MountsController < ApplicationController
   end
 
   def render_birth_create
-    @mother = current_user.mounts.find_by(id: @children.first.mother_id)
+    @mount = current_user.mounts.find_by(id: @children.first.mother_id)
     @father = current_user.mounts.find_by(id: @mother.current_spouse_id)
     render 'birth'
   end
+
+  def index_page_of(mount)
+    mount.type == 'Dd' ? dds_path : muldos_path
+  end
+
 end

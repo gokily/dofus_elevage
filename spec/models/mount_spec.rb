@@ -9,7 +9,7 @@ RSpec.describe Mount, type: :model do
   end
 
   it 'is valid with a name, owner, color, reproduction count,
-sex and pregnant status' do
+sex, pregnant status and type' do
     second = build(:mount)
     expect(second).to be_valid
   end
@@ -32,11 +32,6 @@ sex and pregnant status' do
     expect(@mount.errors[:color]).to include("can't be blank")
   end
 
-  it 'is invalid if the color is not in the defined ones' do
-    @mount.color = 'super'
-    @mount.valid?
-    expect(@mount.errors[:color]).to include('Color must be within the possible choices.')
-  end
 
   it 'is invalid without a reproduction count' do
     @mount.reproduction = nil
@@ -44,19 +39,6 @@ sex and pregnant status' do
     expect(@mount.errors[:reproduction]).to include("can't be blank")
   end
 
-  it 'is valid with a reproduction count of 0 to 4' do
-    (0..4).each do |n|
-      @mount.reproduction = n
-      expect(@mount).to be_valid
-    end
-  end
-
-  it 'is invalid with a reproduction count outside of 0 to 4' do
-    @mount.reproduction = 5
-    expect(@mount).to_not be_valid
-    @mount.reproduction = -1
-    expect(@mount).to_not be_valid
-  end
 
   it 'is invalid without a pregnant status' do
     @mount.pregnant = nil
@@ -73,6 +55,17 @@ sex and pregnant status' do
     @mount.pregnant = true
     expect(@mount).to_not be_valid
   end
+
+  it 'is invalid without a type' do
+    @mount.type = nil
+    expect(@mount).to_not be_valid
+  end
+
+  it 'is invalid without a type in the defined ones' do
+    @mount.type = 'coucou'
+    expect(@mount).to_not be_valid
+  end
+
   it 'does not allow duplicate mount names per user' do
     @user.save
     @mount.save
@@ -137,6 +130,12 @@ sex and pregnant status' do
         expect(@second.mate(@mount)).to eql 0
       end
     end
+    context 'with two breedable mounts of different type' do
+      it 'returns an error' do
+        @second.type = 'Muldo'
+        expect(@mount.mate(@second)).to eql 0
+      end
+    end
   end
 
   describe 'ancestors(n) gets the ancestors to the n-th degree' do
@@ -151,10 +150,10 @@ sex and pregnant status' do
 
     context 'for a mount with known ancestors' do
       before do
-        @father = build(:mount, owner: @user, name: 'father', sex: 'M')
-        @mother = build(:mount, owner: @user, name: 'mother', sex: 'F')
-        @mount.add_father(@father)
-        @mount.add_mother(@mother)
+        @father = create(:mount, owner: @user, name: 'father', sex: 'M')
+        @mother = create(:mount, owner: @user, name: 'mother', sex: 'F')
+        @mount.father_id = @father.id
+        @mount.mother_id = @mother.id
       end
 
       context 'for a mount with a father and mother' do
@@ -167,12 +166,14 @@ sex and pregnant status' do
 
       context 'for a mount with a FF, MF and MM' do
         it 'returns a hash with the parents and the known grand-parents' do
-          mf = build(:mount, owner: @user, name: 'mf', sex: 'M')
-          ff = build(:mount, owner: @user, name: 'ff', sex: 'M')
-          mm = build(:mount, owner: @user, name: 'mm', sex: 'F')
-          @mother.add_father(mf)
-          @mother.add_mother(mm)
-          @father.add_father(ff)
+          mf = create(:mount, owner: @user, name: 'mf', sex: 'M')
+          ff = create(:mount, owner: @user, name: 'ff', sex: 'M')
+          mm = create(:mount, owner: @user, name: 'mm', sex: 'F')
+          @mother.father_id = mf.id
+          @mother.mother_id = mm.id
+          @father.father_id = ff.id
+          @mother.save
+          @father.save
           ret = @mount.ancestors(2)
           expect(ret.length).to eql(6)
           expect(ret['MM'].id).to eql mm.id
@@ -188,11 +189,11 @@ sex and pregnant status' do
   describe 'consang?(mount, n) looks if the mounts are consanguineous at the \
             n-th degree' do
     before do
-      @father = build(:mount, owner: @user, name: 'father', sex: 'M')
-      @mother = build(:mount, owner: @user, name: 'mother', sex: 'F')
+      @father = create(:mount, owner: @user, name: 'father', sex: 'M')
+      @mother = create(:mount, owner: @user, name: 'mother', sex: 'F')
       @other = build(:mount, owner: @user, name: 'other')
-      @mount.add_father(@father)
-      @mount.add_mother(@mother)
+      @mount.father_id = @father.id
+      @mount.mother_id = @mother.id
     end
 
     context 'for two unrelated mounts' do

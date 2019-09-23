@@ -22,5 +22,8 @@ Rails.application.routes.draw do
       get :birth
     end
   end
+
+  resources :muldos
+  resources :dds
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

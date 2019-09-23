@@ -285,6 +285,12 @@ footer ul li {
   font-size: 1.6em;
   padding: 5px;
   border-bottom: 1px solid $mywhite;
+  width: 35px;
+  height: 35px;
+}
+
+.side-icon img {
+  width: 100%;
 }
 
 .side-icon:hover {

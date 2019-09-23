@@ -1,0 +1,2 @@
+module MuldoHelper
+end

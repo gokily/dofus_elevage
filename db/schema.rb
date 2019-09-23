@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_06_14_100032) do
     t.integer "father_id"
     t.integer "mother_id"
     t.integer "current_spouse_id"
+    t.string "type"
     t.index ["father_id", "mother_id"], name: "index_mounts_on_father_id_and_mother_id"
     t.index ["father_id"], name: "index_mounts_on_father_id"
     t.index ["mother_id"], name: "index_mounts_on_mother_id"

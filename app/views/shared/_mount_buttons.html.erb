@@ -15,6 +15,7 @@
 <% elsif mount.sterile? %>
   <button class="btn btn-danger mount-sterile">Sterile</button>
 <% else %>
-  <%= link_to 'Breed', breed_mount_path(mount.id),
+  <%= link_to 'Breed', breed_mount_path(mount.id,
+                                        consang: mount.type == 'Dd' ? true : false),
               class: "btn btn-success mount-breed" %>
 <% end %>

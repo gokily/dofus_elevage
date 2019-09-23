@@ -1,6 +1,7 @@
 <aside id="nav-aside">
   <a href=<%= help_path %> class="material-icons side-icon">arrow_forward_ios</a>
   <a href=<%= root_path %> class="material-icons side-icon">home</a>
-  <a href=<%= mounts_path %> class="material-icons side-icon">people</a>
+  <%= link_to image_tag('icon/muldo_icon.png'), muldos_path, class: 'side-icon' %>
+  <%= link_to image_tag('icon/dd_icon.png'), dds_path, class: 'side-icon' %>
   <a href=<%= root_path %> class="material-icons side-icon">settings</a>
 </aside>
