@@ -1,9 +1,12 @@
 class MountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user?, only: [:show, :edit, :update, :mate, :birth, :destroy]
+  before_action :correct_user?, only: %i[show edit update mate birth
+                                       breed destroy]
   before_action only: [:birth_create] do
     correct_parents?(params[:children])
   end
+  before_action :store_location,
+                only: %i[edit breed birth]
 
   def show
     @ancestors = @mount.ancestors(3)
@@ -13,13 +16,12 @@ class MountsController < ApplicationController
     @parent = %w[F M]
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if @mount.update_attributes(mount_params)
+    if @mount.update_attributes(mount_params(@mount.type.downcase))
       flash[:success] = 'Mount edited.'
-      redirect_back(fallback_location: @mount)
+      redirect_to stored_location_for(:user)
     else
       render 'edit'
     end
@@ -28,7 +30,7 @@ class MountsController < ApplicationController
   def destroy
     @mount.destroy
     flash[:success] = 'Mount deleted.'
-    redirect_back fallback_location: mounts_path
+    redirect_to index_page_of(@mount)
   end
 
   def breed
@@ -43,7 +45,7 @@ class MountsController < ApplicationController
     parent2 = current_user.mounts.find_by(id: params[:parent2])
     if parent1.mate(parent2) == 1
       flash[:success] = "#{parent1.name} mated with #{parent2.name}."
-      redirect_to index_page_of(@mount)
+      redirect_to stored_location_for(:user)
     else
       flash[:danger] = "Cannot mate #{parent1.name} with #{parent2.name}."
       redirect_back(fallback_location: breed_mount_path(parent1.id))
@@ -68,7 +70,7 @@ class MountsController < ApplicationController
     if @children.each(&:save)
       mother = current_user.mounts.find_by(id: @children.first.mother_id)
       mother.update_attributes!(pregnant: false)
-      redirect_to index_page_of(mother), notice: 'Babies successfully added'
+      redirect_to stored_location_for(:user), notice: 'Babies successfully added'
     else
       render_birth_create
     end
@@ -78,7 +80,7 @@ class MountsController < ApplicationController
 
   def mount_params(type)
     params.require(type.to_sym).permit(:name, :color, :sex, :reproduction, :pregnant,
-                                  :father_id, :mother_id, :type)
+                                       :father_id, :mother_id, :type)
   end
 
   def mount_params2(my_params)
@@ -99,6 +101,9 @@ class MountsController < ApplicationController
     end
   end
 
+  def store_location
+    store_location_for(:user, request.referer)
+  end
   def render_birth_create
     @mount = current_user.mounts.find_by(id: @children.first.mother_id)
     @father = current_user.mounts.find_by(id: @mother.current_spouse_id)

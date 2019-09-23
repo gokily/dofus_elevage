@@ -23,6 +23,14 @@ class Dd < Mount
      'Turquoise', 'Turquoise et Orchidee', 'Turquoise et Pourpre', 'Turquoise et Rousse']
   end
 
+  def get_icon
+    'icon/' + color.downcase.sub(' et ', '_')
+  end
+
+  def get_img
+    'dragodinde/dd_' + color.downcase.sub(' et ', '_')
+  end
+
   def to_partial_path
     'mounts/mount'
   end

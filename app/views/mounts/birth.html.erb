@@ -4,7 +4,7 @@
     <% @children.each_with_index do |child, index| %>
       <div class="mount-form test-form form-content">
         <%= fields_for "children[#{index}]", child do |f| %>
-         <%= render 'shared/mount_form_two', f: f, birth: true %>>
+         <%= render 'shared/mount_form_two', f: f, birth: true %>
       <% end %>
       </div>
     <% end %>

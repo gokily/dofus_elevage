@@ -66,14 +66,6 @@ class Mount < ApplicationRecord
     sex == 'M' ? 'Male' : 'Female'
   end
 
-  def get_icon
-    'icon/' + color.downcase.sub(' et ', '_')
-  end
-
-  def get_img
-    'dragodinde/dd_' + color.downcase.sub(' et ', '_')
-  end
-
   def ancestors(n)
     i = 0
     ret = {}
