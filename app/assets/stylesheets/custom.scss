@@ -106,6 +106,9 @@ section {
 
 body {
   line-height: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 ol,
@@ -198,8 +201,13 @@ a {
 }
 
 .main-container {
-  padding: 20px;
-  margin: 0px 20px 0px 40px;
+  flex: 1 1 auto;
+}
+
+.content-container {
+  border-left: 35px solid $myblack;
+  padding: 20px 20px 20px 40px;
+
 }
 
 .row {
@@ -215,6 +223,7 @@ a {
 header {
   padding: 0px 20px;
   background-color: $myblack;
+  z-index: 30;
 }
 
 
@@ -247,13 +256,14 @@ header {
 /* FOOTER CSS */
 
 footer {
-  margin-top: 45px;
-  padding-top: 5px;
+  min-height: 150px;
+  padding-top: 10px;
   background-color: $myblack;
   color: $mywhite;
 }
 
 footer ul {
+  margin-right: 20px;
   float: right;
   list-style: none;
 }
@@ -267,18 +277,24 @@ footer ul li {
   margin-left: 15px;
 }
 
+footer nav a:hover {
+  color: $mywhite;
+  text-decoration: none;
+}
+
 
 /* ASIDE NAV CSS */
 
 #nav-aside {
-  position: fixed;
+  position: absolute;
   left: 0px;
-  top: 60px;
+  top: 0px;
   bottom: 0px;
   background-color: $myblack;
-  z-index: 1000;
+  z-index: 20;
   display: flex;
   flex-direction: column;
+  padding-top: 70px;
 }
 
 .side-icon {
@@ -293,9 +309,13 @@ footer ul li {
   width: 100%;
 }
 
+#nav-aside a:hover {
+  background-color: $mydarkgrey;
+}
+
 .side-icon:hover {
   text-decoration: none;
-  color: $mywhite;
+  color: $mygrey;
 }
 
 /* FORM CSS */
@@ -508,3 +528,26 @@ div.dropdown-menu.birth-dropdown-menu {
   padding-top: 20px;
 }
 
+
+/* STATIC PAGES */
+
+.static-page {
+  background-color: $mywhite;
+  padding: 20px;
+  @extend %round-border;
+  @extend %shadow;
+}
+
+.static-page h2 {
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.static-page h3 {
+  font-weight: 500;
+  margin: 20px 0 5px;
+}
+
+.discord-logo {
+  width: 200px;
+}

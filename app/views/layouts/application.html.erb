@@ -14,8 +14,8 @@
 
 <body>
 <%= render 'layouts/header' %>
-<%= render 'layouts/aside' %>
-<div class="container main-container">
+<div class="main-container">
+  <%= render 'layouts/aside' %>
   <% if notice %>
     <p class="alert alert-success"><%= notice %></p>
   <% elsif alert %>
@@ -25,7 +25,9 @@
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
     <% end %>
   <% end %>
-  <%= yield %>
+  <div class="content-container">
+    <%= yield %>
+  </div>
 </div>
 <%= render 'layouts/footer' %>
 </body>
