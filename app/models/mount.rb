@@ -9,7 +9,7 @@ class Mount < ApplicationRecord
   validates :color, presence: true
   validates :reproduction, presence: true
   validates :pregnant, inclusion: [true, false]
-  validates :type, presence: true, inclusion: %w[Dd Muldo]
+  #validates :type, presence: true, inclusion: %w[Dd Muldo]
   validate :male_pregnant
 
   scope :mates, ->(mount, consang) {
