@@ -95,9 +95,13 @@ class Mount < ApplicationRecord
     ances2 = mount.ancestors(n)
     ances1.each do |_key, ind|
       next if ind.nil?
+      return true if ind.id == mount.id
       ances2.each do |_key2, ind2|
         return true if !ind2.nil? && ind.id == ind2.id
       end
+    end
+    ances2.each do |_key, ind|
+      return true if ind.id == id
     end
     false
   end
