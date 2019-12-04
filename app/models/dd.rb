@@ -28,7 +28,7 @@ class Dd < Mount
   end
 
   def get_img
-    'dragodinde/dd_' + color.downcase.sub(' et ', '_')
+    'dragodinde/dd_' + color.downcase.sub(' et ', '_') + '.webp'
   end
 
   def to_partial_path

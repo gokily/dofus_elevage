@@ -31,7 +31,7 @@ class Muldo < Mount
   end
 
   def get_img
-    'muldo/muldo_' + color.downcase.sub(' et ', '_')
+    'muldo/muldo_' + color.downcase.sub(' et ', '_') + '.webp'
   end
 
   def to_partial_path
