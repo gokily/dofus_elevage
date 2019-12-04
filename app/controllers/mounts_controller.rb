@@ -19,7 +19,7 @@ class MountsController < ApplicationController
   def edit; end
 
   def update
-    if @mount.update_attributes(mount_params(@mount.type.downcase))
+    if @mount.update_attributes(mount_params(@mount.class.to_s.downcase))
       flash[:success] = 'Mount edited.'
       redirect_to stored_location_for(:user)
     else
@@ -111,7 +111,7 @@ class MountsController < ApplicationController
   end
 
   def index_page_of(mount)
-    mount.type == 'Dd' ? dds_path : muldos_path
+    mount.class.to_s == 'Dd' ? dds_path : muldos_path
   end
 
 end
