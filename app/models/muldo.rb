@@ -27,7 +27,7 @@ class Muldo < Mount
 
   def get_icon
     'icon/' + color.downcase.sub(' et ', '_').sub('roux', 'rousse')
-                   .sub('dore', 'doree')
+                   .sub('dore', 'doree') + '.png'
   end
 
   def get_img
