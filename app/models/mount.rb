@@ -13,14 +13,14 @@ class Mount < ApplicationRecord
   validate :male_pregnant
 
   scope :mates, ->(mount, consang) {
-    where('sex == ? AND pregnant == 0 AND reproduction != 0 AND type == ?', \
+    where('sex = ? AND pregnant = false AND reproduction != 0 AND type = ?', \
           mount.sex == 'M' ? 'F' : 'M', mount.class.to_s).select do |ind|
       consang == 'false' ? !ind.consang?(mount, 3) : true
     end
   }
 
-  scope :pregnant, -> { where('pregnant == 1') }
-  scope :fertile, -> { where('pregnant == 0 AND reproduction != 0') }
+  scope :pregnant, -> { where('pregnant = true') }
+  scope :fertile, -> { where('pregnant = false AND reproduction != 0') }
 
 
   def breedable?
