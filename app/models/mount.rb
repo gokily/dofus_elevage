@@ -15,7 +15,7 @@ class Mount < ApplicationRecord
   scope :mates, ->(mount, consang) {
     where('sex = ? AND pregnant = false AND reproduction != 0 AND type = ?', \
           mount.sex == 'M' ? 'F' : 'M', mount.class.to_s).select do |ind|
-      consang == 'false' ? !ind.consang?(mount, 3) : true
+      consang == 'false' ? !ind.consang?(mount, 5) : true
     end
   }
 
