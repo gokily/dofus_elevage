@@ -101,7 +101,7 @@ class Mount < ApplicationRecord
       end
     end
     ances2.each do |_key, ind|
-      return true if ind.id == id
+      return true if !ind.nil? && id == ind.id
     end
     false
   end
