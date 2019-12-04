@@ -24,7 +24,7 @@ class Dd < Mount
   end
 
   def get_icon
-    'icon/' + color.downcase.sub(' et ', '_')
+    'icon/' + color.downcase.sub(' et ', '_') + '.png'
   end
 
   def get_img
