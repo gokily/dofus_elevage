@@ -5,25 +5,24 @@ RSpec.feature "Mounts", type: :feature do
 
   scenario 'user adds a new mount' do
     sign_in user
-    visit root_path
+    visit muldos_path
 
     expect do
-      click_link 'people'
       click_link 'New mount'
       fill_in 'Name', with: 'new'
-      fill_in 'Color', with: 'pure'
+      select 'Amande et Ivoire', from: 'Color'
       choose 'Male'
       choose 'No'
-      click_button 'Add mount'
+      click_button 'Add muldo'
       expect(page).to have_content 'New mount added!'
-      expect(page).to have_current_path '/mounts'
+      expect(page).to have_current_path muldos_path
     end.to change(user.mounts, :count).by 1
   end
 
   scenario 'user looks at the mount details' do
     sign_in user
-    mount = create(:mount, name: 'first', owner: user)
-    visit mounts_path
+    mount = create(:muldo, name: 'first', owner: user)
+    visit muldos_path
     within('ol.mount-list') do
       expect(page).to have_css('.mount-name')
     end

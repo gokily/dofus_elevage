@@ -436,7 +436,7 @@ li.mount {
   margin-top: 20px;
 }
 
-.mount-name {
+a.mount-name, span.mount-name {
   border-right: $myblack solid 1px;
   flex-basis: 15%;
   flex-grow: 1;
@@ -445,7 +445,7 @@ li.mount {
   color: $myblack;
 }
 
-.mount-color {
+span.mount-color {
   border-right: $myblack solid 1px;
   flex-basis: 8%;
 }
@@ -458,17 +458,17 @@ li.mount {
   border: $mydarkgrey solid 1px;
 }
 
-.mount-sex {
+span.mount-sex {
   border-right: $myblack solid 1px;
   flex-basis: 10%;
 }
 
-.mount-reproduction {
+span.mount-reproduction {
   border-right: $myblack solid 1px;
   flex-basis: 10%;
 }
 
-.mount-pregnant {
+span.mount-pregnant {
   border-right: $myblack solid 1px;
   flex-basis: 13%;
 }

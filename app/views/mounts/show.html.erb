@@ -13,28 +13,30 @@
       </div>
       <div class="col-6">
         <div class="row mount-info-info">
-          <div class="col-8">
+          <div class="col-4">
             <ul>
               <li>Name:</li>
               <li>Sex:</li>
+              <li>Color:</li>
               <li>Father:</li>
               <li>Mother:</li>
               <li>Reproduction:</li>
               <li>Status:</li>
             </ul>
           </div>
-          <div class="col-4">
+          <div class="col-8">
             <ul>
-              <li><%= @mount.name %></li>
-              <li><%= @mount.translate_sex %></li>
-              <li><%= @mount.father ?
+              <li class="mount-name"><%= @mount.name %></li>
+              <li class="mount-sex"><%= @mount.translate_sex %></li>
+              <li class="mount-color"><%= @mount.color %></li>
+              <li class="mount-father"><%= @mount.father ?
                           link_to(@mount.father.name, mount_path(@mount.father)) :
                           '???' %></li>
-              <li><%= @mount.mother ?
+              <li class="mount-mother"><%= @mount.mother ?
                           link_to(@mount.mother.name, mount_path(@mount.mother)) :
                           '???' %></li>
-              <li><%= @mount.reproduction %></li>
-              <li><%= @mount.repro_status %></li>
+              <li class="mount-reproduction"><%= @mount.reproduction %></li>
+              <li class="mount-pregnant"><%= @mount.repro_status %></li>
             </ul>
           </div>
         </div>
