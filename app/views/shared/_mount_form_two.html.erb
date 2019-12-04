@@ -4,7 +4,7 @@
 <%= f.text_field :name, class: 'form-control' %>
 
 <%= f.label :color %>
-<%= f.select(:color, @mount.type.constantize.colors.map { |color| [color, color] }) %>
+<%= f.select(:color, @mount.class.colors.map { |color| [color, color] }) %>
 
 <%= f.label :sex %><br>
 <%= f.label :sex, 'Male', value: 'M' %>
@@ -19,8 +19,8 @@
 <%= f.radio_button :pregnant, false %>
 <br>
 <%= f.label :reproduction %>
-<%= f.number_field :reproduction, in: 0..(@mount.type.constantize.max_repro), class: 'form-control',
-                   value: birth ? @mount.type.constantize.max_repro : @mount.reproduction || @mount.type.constantize.max_repro %>
+<%= f.number_field :reproduction, in: 0..(@mount.class.max_repro), class: 'form-control',
+                   value: birth ? @mount.class.max_repro : @mount.reproduction || @mount.class.max_repro %>
 <% if birth %>
   <%= f.hidden_field :type, value: @mount.type %>
   <%= f.label :father %>
