@@ -35,8 +35,7 @@ class MountsController < ApplicationController
 
   def breed
     @mount = current_user.mounts.find(params[:id])
-    @mates = current_user.mounts.mates(@mount, params[:consang])\
-                         .paginate(page: params[:page])
+    @mates = current_user.mounts.mates(@mount, params[:consang])
 
   end
 

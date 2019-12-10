@@ -6,13 +6,13 @@ class MuldosController < MountsController
   def index
     case params[:mounts]
     when 'fertile'
-      @mounts = current_user.muldos.fertile.paginate(page: params[:page], per_page: 15)
+      @mounts = current_user.muldos.fertile
       @btn_style = %w[btn-secondary btn-success btn-secondary]
     when 'pregnant'
-      @mounts = current_user.muldos.pregnant.paginate(page: params[:page], per_page: 15)
+      @mounts = current_user.muldos.pregnant
       @btn_style = %w[btn-secondary btn-secondary btn-warning]
     else
-      @mounts = current_user.muldos.paginate(page: params[:page], per_page: 15)
+      @mounts = current_user.muldos
       @btn_style = %w[btn-info btn-secondary btn-secondary]
     end
   end

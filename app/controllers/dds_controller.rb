@@ -6,13 +6,13 @@ class DdsController < MountsController
   def index
     case params[:mounts]
     when 'fertile'
-      @mounts = current_user.dds.fertile.paginate(page: params[:page], per_page: 15)
+      @mounts = current_user.dds.fertile
       @btn_style = %w[btn-secondary btn-success btn-secondary]
     when 'pregnant'
-      @mounts = current_user.dds.pregnant.paginate(page: params[:page], per_page: 15)
+      @mounts = current_user.dds.pregnant
       @btn_style = %w[btn-secondary btn-secondary btn-warning]
     else
-      @mounts = current_user.dds.paginate(page: params[:page], per_page: 15)
+      @mounts = current_user.dds
       @btn_style = %w[btn-info btn-secondary btn-secondary]
     end
   end
