@@ -106,7 +106,7 @@ class MountsController < ApplicationController
   end
   def render_birth_create
     @mount = current_user.mounts.find_by(id: @children.first.mother_id)
-    @father = current_user.mounts.find_by(id: @mother.current_spouse_id)
+    @father = current_user.mounts.find_by(id: @mount.current_spouse_id)
     render 'birth'
   end
 
