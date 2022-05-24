@@ -37,7 +37,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 #gem 'bootstrap-sass',          '~>3.4.1'
 gem 'bootstrap', '~> 4.3.1'
-gem 'nokogiri', '~> 1.10.8'
+gem 'nokogiri', '~> 1.13.6'
 gem 'devise', '~> 4.7.1'
 gem 'will_paginate', '3.1.7'
 gem 'will_paginate-bootstrap'
